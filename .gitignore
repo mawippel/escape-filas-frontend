@@ -1,3 +1,6 @@
+.expo
+.watchmanconfig
+
 # Logs
 logs
 *.log
