@@ -1,20 +1,25 @@
-import React from 'react';
-import { MapView } from 'expo';
+import React, { Component } from 'react';
+import { createStackNavigator, createAppContainer } from 'react-navigation';
+import Login from './components/login/Login';
 
-class App extends React {
+
+const RootStack = createStackNavigator(
+  {
+    Login: Login
+  },
+  {
+    initialRouteName: 'Login',
+    headerMode: 'none',
+    navigationOptions: {
+      headerVisible: false,
+    }
+  }
+);
+
+const AppContainer = createAppContainer(RootStack);
+
+export default class App extends Component {
   render() {
-    return (
-      <MapView
-        style={{ flex: 1 }}
-        initialRegion={{
-          latitude: 37.78825,
-          longitude: -122.4324,
-          latitudeDelta: 0.0922,
-          longitudeDelta: 0.0421,
-        }}
-      />
-    );
+    return <AppContainer />;
   }
 }
-
-export default App;
