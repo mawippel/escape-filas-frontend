@@ -10,14 +10,22 @@ import LoginRegisterForm from '../auxiliary/LoginRegisterForm';
 
 export default class Signup extends Component {
 
+	signIn = () => {
+		this.props.navigation.navigate('Login')
+	}
+
+	registerHandler = () => {
+
+	}
+
 	render() {
 		return (
 			<View style={styles.container}>
 				<Logo />
-				<LoginRegisterForm type="Registre-se" />
+				<LoginRegisterForm handleAction={this.registerHandler} type="Registre-se" />
 				<View style={styles.signupTextCont}>
 					<Text style={styles.signupText}>Já possui uma conta?</Text>
-					<TouchableOpacity onPress={this.goBack}>
+					<TouchableOpacity onPress={this.signIn}>
 						<Text style={styles.signupButton}> Login</Text>
 					</TouchableOpacity>
 				</View>
