@@ -7,22 +7,52 @@ import {
 } from 'react-native';
 import Logo from '../logo/Logo';
 import LoginRegisterForm from '../auxiliary/LoginRegisterForm';
+import firebase from 'firebase'
 
 export default class Login extends Component {
+
+	state = {
+		email: '',
+		password: '',
+		errorMessage: null
+	}
 
 	signUp = () => {
 		this.props.navigation.navigate('Register')
 	}
 
-	loginHandler = () => {
+	emailStateHandler = (email) => {
+		this.setState({ email: email });
+	}
 
+	passwordStateHandler = (password) => {
+		this.setState({ password: password });
+	}
+
+	loginHandler = () => {
+		const { email, password } = this.state
+		firebase
+			.auth()
+			.signInWithEmailAndPassword(email, password)
+			.then(() => this.props.navigation.navigate('Map'))
+			.catch(error => this.setState({ errorMessage: error.message }))
 	}
 
 	render() {
+		if (this.state.errorMessage) {
+			return (
+				<View style={styles.container}>
+					<Text>Erro do chapa {this.state.errorMessage}</Text>
+				</View>
+			)
+		}
+
 		return (
 			<View style={styles.container}>
 				<Logo />
-				<LoginRegisterForm handleAction={this.loginHandler} type="Login" />
+				<LoginRegisterForm emailStateHandler={this.emailStateHandler}
+					passwordStateHandler={this.passwordStateHandler}
+					handleAction={this.loginHandler} type="Login" />
 				<View style={styles.signupTextCont}>
 					<Text style={styles.signupText}>Não possui uma conta ainda?</Text>
 					<TouchableOpacity onPress={this.signUp}>

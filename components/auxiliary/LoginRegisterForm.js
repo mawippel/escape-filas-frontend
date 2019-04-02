@@ -19,13 +19,14 @@ export default class LoginRegisterForm extends Component {
 					selectionColor="#fff"
 					keyboardType="email-address"
 					onSubmitEditing={() => this.password.focus()}
+					onChangeText={(email) => this.props.emailStateHandler(email)}
 				/>
 				<TextInput style={styles.inputBox}
 					underlineColorAndroid='rgba(0,0,0,0)'
 					placeholder="Senha"
 					secureTextEntry={true}
 					placeholderTextColor="#ffffff"
-					ref={(input) => this.password = input}
+					onChangeText={(password) => this.props.passwordStateHandler(password)}
 				/>
 				<TouchableOpacity onPress={this.props.handleAction} style={styles.button}>
 					<Text style={styles.buttonText}>

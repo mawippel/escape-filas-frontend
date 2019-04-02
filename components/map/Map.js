@@ -1,7 +1,13 @@
 import React, { Component } from 'react';
 import { MapView } from 'expo';
+import firebase from 'firebase';
 
 export default class Map extends Component {
+
+  componentDidMount(){
+    console.log(firebase.auth().currentUser);
+  }
+
   render() {
     return (
       <MapView
