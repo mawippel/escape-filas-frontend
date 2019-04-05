@@ -26,6 +26,7 @@ export default class LoginRegisterForm extends Component {
 					placeholder="Senha"
 					secureTextEntry={true}
 					placeholderTextColor="#ffffff"
+					ref = {(password) => this.password = password}
 					onChangeText={(password) => this.props.passwordStateHandler(password)}
 				/>
 				<TouchableOpacity onPress={this.props.handleAction} style={styles.button}>
@@ -48,6 +49,7 @@ const styles = StyleSheet.create({
 
 	inputBox: {
 		width: 300,
+		height: 40,
 		backgroundColor: 'rgba(255, 255,255,0.2)',
 		borderRadius: 25,
 		paddingHorizontal: 16,
