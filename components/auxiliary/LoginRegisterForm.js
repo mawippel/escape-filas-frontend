@@ -43,10 +43,12 @@ export default class LoginRegisterForm extends Component {
 const styles = StyleSheet.create({
 	container: {
 		flexGrow: 1,
+		backgroundColor: '#1a1a1a',
 		justifyContent: 'center',
-		alignItems: 'center'
+		alignItems: 'center',
+		width: '100%',
+		height: '30%'
 	},
-
 	inputBox: {
 		width: 300,
 		height: 40,
@@ -59,7 +61,7 @@ const styles = StyleSheet.create({
 	},
 	button: {
 		width: 300,
-		backgroundColor: '#1c313a',
+		backgroundColor: 'rgba(255, 255,255,0.2)',
 		borderRadius: 25,
 		marginVertical: 10,
 		paddingVertical: 13

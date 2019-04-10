@@ -56,17 +56,18 @@ export default class Signup extends Component {
 
 const styles = StyleSheet.create({
 	container: {
-		backgroundColor: '#455a64',
+		backgroundColor: '#ffffff',
 		flex: 1,
 		alignItems: 'center',
 		justifyContent: 'center'
 	},
 	signupTextCont: {
-		flexGrow: 1,
-		alignItems: 'flex-end',
+		flex: 1,
+		backgroundColor: '#1a1a1a',
 		justifyContent: 'center',
 		paddingVertical: 16,
-		flexDirection: 'row'
+		flexDirection: 'row',
+		width: '100%'
 	},
 	signupText: {
 		color: 'rgba(255,255,255,0.6)',
