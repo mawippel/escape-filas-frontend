@@ -12,7 +12,8 @@ export default class LoginRegisterForm extends Component {
 	render() {
 		return (
 			<View style={styles.container}>
-				<TextInput style={styles.inputBox}
+				<TextInput 
+					style={styles.inputBox}
 					underlineColorAndroid='rgba(0,0,0,0)'
 					placeholder="Email"
 					placeholderTextColor="#ffffff"
@@ -21,7 +22,8 @@ export default class LoginRegisterForm extends Component {
 					onSubmitEditing={() => this.password.focus()}
 					onChangeText={(email) => this.props.emailStateHandler(email)}
 				/>
-				<TextInput style={styles.inputBox}
+				<TextInput 
+					style={styles.inputBox}
 					underlineColorAndroid='rgba(0,0,0,0)'
 					placeholder="Senha"
 					secureTextEntry={true}
@@ -29,7 +31,9 @@ export default class LoginRegisterForm extends Component {
 					ref = {(password) => this.password = password}
 					onChangeText={(password) => this.props.passwordStateHandler(password)}
 				/>
-				<TouchableOpacity onPress={this.props.handleAction} style={styles.button}>
+				<TouchableOpacity 
+					onPress={this.props.handleAction} 
+					style={styles.button}>
 					<Text style={styles.buttonText}>
 						{this.props.type}
 					</Text>

@@ -1,20 +1,19 @@
 import React, { Component } from 'react';
 import {
 	StyleSheet,
-	Text,
 	View,
-	TouchableOpacity
+	Alert
 } from 'react-native';
 import Logo from '../logo/Logo';
 import LoginRegisterForm from '../auxiliary/LoginRegisterForm';
 import firebase from 'firebase'
+import BottomInitialInfo from '../auxiliary/BottomInitialInfo';
 
 export default class Login extends Component {
 
 	state = {
 		email: '',
-		password: '',
-		errorMessage: null
+		password: ''
 	}
 
 	signUp = () => {
@@ -35,30 +34,24 @@ export default class Login extends Component {
 			.auth()
 			.signInWithEmailAndPassword(email, password)
 			.then(() => this.props.navigation.navigate('Map'))
-			.catch(error => this.setState({ errorMessage: error.message }))
+			.catch(error => Alert.alert('Erro', `${error}`))
 	}
 
 	render() {
-		if (this.state.errorMessage) {
-			return (
-				<View style={styles.container}>
-					<Text>Erro do chapa {this.state.errorMessage}</Text>
-				</View>
-			)
-		}
-
 		return (
 			<View style={styles.container}>
 				<Logo />
-				<LoginRegisterForm emailStateHandler={this.emailStateHandler}
+				<LoginRegisterForm
+					emailStateHandler={this.emailStateHandler}
 					passwordStateHandler={this.passwordStateHandler}
-					handleAction={this.loginHandler} type="Login" />
-				<View style={styles.signupTextCont}>
-					<Text style={styles.signupText}>Não possui uma conta ainda?</Text>
-					<TouchableOpacity onPress={this.signUp}>
-						<Text style={styles.signupButton}> Registre-se</Text>
-					</TouchableOpacity>
-				</View>
+					handleAction={this.loginHandler}
+					type="Login"
+				/>
+				<BottomInitialInfo 
+					firstText='Não possui uma conta ainda?'
+					secondText=' Registre-se'
+					buttonCallback={this.signUp}
+				/>
 			</View>
 		)
 	}
@@ -70,22 +63,5 @@ const styles = StyleSheet.create({
 		flex: 1,
 		alignItems: 'center',
 		justifyContent: 'center'
-	},
-	signupTextCont: {
-		flex: 1,
-		backgroundColor: '#1a1a1a',
-		justifyContent: 'center',
-		paddingVertical: 16,
-		flexDirection: 'row',
-		width: '100%'
-	},
-	signupText: {
-		color: 'rgba(255,255,255,0.6)',
-		fontSize: 16
-	},
-	signupButton: {
-		color: '#ffffff',
-		fontSize: 16,
-		fontWeight: '500'
 	}
 });

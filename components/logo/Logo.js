@@ -1,17 +1,20 @@
 import React, { Component } from 'react';
 import {
 	StyleSheet,
-	Text,
 	View,
-	Image
+	Image,
+	PixelRatio
 } from 'react-native';
 
 export default class Logo extends Component {
 	render() {
 		return (
 			<View style={styles.container}>
-				<Image style={{ width: 300, height: 250 }}
-					source={require('../../images/logo.png')} />
+				<Image style={{ 
+					width: PixelRatio.getPixelSizeForLayoutSize(110), 
+					height: PixelRatio.getPixelSizeForLayoutSize(95) }}
+					source={require('../../images/logo.png')}
+					resizeMode='contain' />
 			</View>
 		)
 	}
@@ -20,7 +23,7 @@ export default class Logo extends Component {
 const styles = StyleSheet.create({
 	container: {
 		flexGrow: 1,
-		justifyContent: 'flex-end',
+		justifyContent: 'center',
 		alignItems: 'center',
 		paddingTop: 100,
 		paddingBottom: 100

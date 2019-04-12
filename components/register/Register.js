@@ -3,11 +3,13 @@ import {
 	StyleSheet,
 	Text,
 	View,
-	TouchableOpacity
+	TouchableOpacity,
+	Alert
 } from 'react-native';
 import Logo from '../logo/Logo';
 import LoginRegisterForm from '../auxiliary/LoginRegisterForm';
 import firebase from 'firebase'
+import BottomInitialInfo from '../auxiliary/BottomInitialInfo';
 
 export default class Signup extends Component {
 
@@ -33,22 +35,23 @@ export default class Signup extends Component {
 		.auth()
 		.createUserWithEmailAndPassword(this.state.email, this.state.password)
 		.then(() => this.props.navigation.navigate('Map'))
-		.catch(error => this.setState({ errorMessage: error.message }))
+		.catch(error => Alert.alert('Erro', `${error}`))
 	}
 
 	render() {
 		return (
 			<View style={styles.container}>
 				<Logo />
-				<LoginRegisterForm emailStateHandler={this.emailStateHandler} 
+				<LoginRegisterForm 
+						emailStateHandler={this.emailStateHandler} 
 						passwordStateHandler={this.passwordStateHandler}
-						handleAction={this.registerHandler} type="Registre-se" />
-				<View style={styles.signupTextCont}>
-					<Text style={styles.signupText}>Já possui uma conta?</Text>
-					<TouchableOpacity onPress={this.signIn}>
-						<Text style={styles.signupButton}> Login</Text>
-					</TouchableOpacity>
-				</View>
+						handleAction={this.registerHandler} 
+						type="Registre-se" />
+				<BottomInitialInfo 
+					firstText='Já possui uma conta?'
+					secondText=' Login'
+					buttonCallback={this.signIn}
+				/>
 			</View>
 		)
 	}
@@ -60,22 +63,5 @@ const styles = StyleSheet.create({
 		flex: 1,
 		alignItems: 'center',
 		justifyContent: 'center'
-	},
-	signupTextCont: {
-		flex: 1,
-		backgroundColor: '#1a1a1a',
-		justifyContent: 'center',
-		paddingVertical: 16,
-		flexDirection: 'row',
-		width: '100%'
-	},
-	signupText: {
-		color: 'rgba(255,255,255,0.6)',
-		fontSize: 16
-	},
-	signupButton: {
-		color: '#ffffff',
-		fontSize: 16,
-		fontWeight: '500'
 	}
 });
