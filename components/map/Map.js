@@ -2,9 +2,10 @@ import React, { Component } from 'react';
 import {
 	Dimensions,
 	View,
-	StyleSheet
+	StyleSheet,
+	Text
 } from 'react-native'
-import { MapView, Location, Permissions } from 'expo';
+import { Constants, MapView, Location, Permissions } from 'expo';
 
 const { width, height } = Dimensions.get("window")
 const SCREEN_WIDTH = width
@@ -16,66 +17,61 @@ const LONGITUDE_DELTA = LATITUDE_DELTA * ASPECT_RATIO
 export default class Map extends Component {
 
 	state = {
-		initialPosition: {
+		mapRegion: {
 			latitude: 0,
 			longitude: 0,
 			latitudeDelta: 0,
 			longitudeDelta: 0
 		},
-		markerPosition: {
-			latitude: 0,
-			longitude: 0
-		}
-	}
-
-	watchID = null
-
-	_getLocationAsync = async () => {
-		await Permissions.askAsync(Permissions.LOCATION);
-		return position = await Location.getCurrentPositionAsync();
-	}
+		hasLocationPermissions: false,
+		locationResult: null
+	};
 
 	componentDidMount() {
-		alert(JSON.stringify(this._getLocationAsync()));
-		navigator.geolocation.getCurrentPosition((position) => {
-			alert('initialRegion')
-			let initialRegion = {
-				latitude: parseFloat(position.coords.latitude),
-				longitude: parseFloat(position.coords.longitude),
+		this._getLocationAsync();
+	}
+
+	_handleMapRegionChange = mapRegion => {
+		this.setState({ mapRegion });
+	};
+
+	_getLocationAsync = async () => {
+		let { status } = await Permissions.askAsync(Permissions.LOCATION);
+		if (status !== 'granted') {
+			this.setState({
+				locationResult: 'Permissao negada a Localizaçao',
+			});
+		} else {
+			this.setState({ hasLocationPermissions: true });
+		}
+
+		let location = await Location.getCurrentPositionAsync({ enableHighAccuracy: true });
+		this.setState({ locationResult: JSON.stringify(location) });
+
+		this.setState({
+			mapRegion: {
+				latitude: location.coords.latitude,
+				longitude: location.coords.longitude,
 				latitudeDelta: LATITUDE_DELTA,
 				longitudeDelta: LONGITUDE_DELTA
 			}
-
-			this.setState({ initialPosition: initialRegion })
-			this.setState({ markerPosition: initialRegion })
-		})
-
-		this.watchID = navigator.geolocation.watchPosition((position) => {
-			let latitude = parseFloat(position.coords.latitude)
-			let longitude = parseFloat(position.coords.longitude)
-
-			let lastRegion = {
-				latitude: latitude,
-				longitude: longitude,
-				latitudeDelta: LATITUDE_DELTA,
-				longitudeDelta: LONGITUDE_DELTA
-			}
-			this.setState({ initialPosition: lastRegion })
-			this.setState({ markerPosition: lastRegion })
-		})
-	}
-
-	componentWillUnmount() {
-		navigator.geolocation.clearWatch(this.watchID)
-	}
+		});
+	};
 
 	render() {
+		if (this.state.locationResult === null) {
+			return <Text>Finding your current location...</Text>
+		}
+		if (this.state.hasLocationPermissions === false) {
+			return <Text>Location permissions are not granted.</Text>
+		}
 		return (
 			<MapView
 				style={{ flex: 1 }}
-				region={this.state.initialPosition}>
+				region={this.state.mapRegion}
+				onRegionChange={this._handleMapRegionChange}>
 				<MapView.Marker
-					coordinate={this.state.markerPosition}>
+					coordinate={this.state.mapRegion}>
 					<View style={styles.radius}>
 						<View style={styles.marker} />
 					</View>
