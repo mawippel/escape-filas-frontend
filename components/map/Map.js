@@ -1,11 +1,9 @@
 import React, { Component } from 'react';
 import {
 	Dimensions,
-	View,
-	StyleSheet,
 	Text
 } from 'react-native'
-import { Constants, MapView, Location, Permissions } from 'expo';
+import { MapView, Location, Permissions } from 'expo';
 
 const { width, height } = Dimensions.get("window")
 const SCREEN_WIDTH = width
@@ -32,14 +30,14 @@ export default class Map extends Component {
 	}
 
 	_handleMapRegionChange = mapRegion => {
-		this.setState({ mapRegion });
+		this.setState({ mapRegion: mapRegion });
 	};
 
 	_getLocationAsync = async () => {
 		let { status } = await Permissions.askAsync(Permissions.LOCATION);
 		if (status !== 'granted') {
 			this.setState({
-				locationResult: 'Permissao negada a Localizaçao',
+				locationResult: 'Permissão negada a Localização',
 			});
 		} else {
 			this.setState({ hasLocationPermissions: true });
@@ -60,46 +58,20 @@ export default class Map extends Component {
 
 	render() {
 		if (this.state.locationResult === null) {
-			return <Text>Finding your current location...</Text>
+			return <Text>Procurando a sua localização...</Text>
 		}
 		if (this.state.hasLocationPermissions === false) {
-			return <Text>Location permissions are not granted.</Text>
+			return <Text>Acesso a localização não permitido. Altere suas configurações.</Text>
 		}
 		return (
 			<MapView
 				style={{ flex: 1 }}
 				region={this.state.mapRegion}
-				onRegionChange={this._handleMapRegionChange}>
-				<MapView.Marker
-					coordinate={this.state.mapRegion}>
-					<View style={styles.radius}>
-						<View style={styles.marker} />
-					</View>
-				</MapView.Marker>
+				showsUserLocation
+				loadingEnabled
+				//onRegionChange={this._handleMapRegionChange}
+				>
 			</MapView>
 		);
 	}
 }
-
-const styles = StyleSheet.create({
-	radius: {
-		height: 50,
-		width: 50,
-		borderRadius: 50 / 2,
-		overflow: 'hidden',
-		backgroundColor: 'rgba(0, 122, 255, 0.1)',
-		borderWidth: 1,
-		borderColor: 'rgba(0, 122, 255, 0.3)',
-		alignItems: 'center',
-		justifyContent: 'center'
-	},
-	marker: {
-		height: 20,
-		width: 20,
-		borderWidth: 3,
-		borderColor: 'white',
-		borderRadius: 20 / 2,
-		overflow: 'hidden',
-		backgroundColor: '#007AFF'
-	}
-})

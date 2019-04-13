@@ -12,7 +12,7 @@ export default class LoginRegisterForm extends Component {
 	render() {
 		return (
 			<View style={styles.container}>
-				<TextInput 
+				<TextInput
 					style={styles.inputBox}
 					underlineColorAndroid='rgba(0,0,0,0)'
 					placeholder="Email"
@@ -22,17 +22,17 @@ export default class LoginRegisterForm extends Component {
 					onSubmitEditing={() => this.password.focus()}
 					onChangeText={(email) => this.props.emailStateHandler(email)}
 				/>
-				<TextInput 
+				<TextInput
 					style={styles.inputBox}
 					underlineColorAndroid='rgba(0,0,0,0)'
 					placeholder="Senha"
 					secureTextEntry={true}
 					placeholderTextColor="#ffffff"
-					ref = {(password) => this.password = password}
+					ref={(password) => this.password = password}
 					onChangeText={(password) => this.props.passwordStateHandler(password)}
 				/>
-				<TouchableOpacity 
-					onPress={this.props.handleAction} 
+				<TouchableOpacity
+					onPress={this.props.handleAction}
 					style={styles.button}>
 					<Text style={styles.buttonText}>
 						{this.props.type}
@@ -54,21 +54,21 @@ const styles = StyleSheet.create({
 		height: '30%'
 	},
 	inputBox: {
-		width: 300,
-		height: 40,
+		width: '80%',
+		height: '15%',
+		paddingHorizontal: '4%',
+		marginVertical: '1%',
 		backgroundColor: 'rgba(255, 255,255,0.2)',
 		borderRadius: 25,
-		paddingHorizontal: 16,
 		fontSize: 16,
-		color: '#ffffff',
-		marginVertical: 10
+		color: '#ffffff'
 	},
 	button: {
 		width: 300,
-		backgroundColor: 'rgba(255, 255,255,0.2)',
-		borderRadius: 25,
 		marginVertical: 10,
-		paddingVertical: 13
+		paddingVertical: 13,
+		backgroundColor: 'rgba(255, 255,255,0.2)',
+		borderRadius: 25
 	},
 	buttonText: {
 		fontSize: 16,
@@ -76,5 +76,4 @@ const styles = StyleSheet.create({
 		color: '#ffffff',
 		textAlign: 'center'
 	}
-
 });

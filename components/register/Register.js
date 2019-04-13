@@ -1,9 +1,7 @@
 import React, { Component } from 'react';
 import {
 	StyleSheet,
-	Text,
 	View,
-	TouchableOpacity,
 	Alert
 } from 'react-native';
 import Logo from '../logo/Logo';

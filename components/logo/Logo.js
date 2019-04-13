@@ -25,8 +25,8 @@ const styles = StyleSheet.create({
 		flexGrow: 1,
 		justifyContent: 'center',
 		alignItems: 'center',
-		paddingTop: 100,
-		paddingBottom: 100
+		paddingTop: '10%',
+		paddingBottom: '10%'
 	},
 	logoText: {
 		marginVertical: 15,
