@@ -29,9 +29,35 @@ export default class Map extends Component {
 		this._getLocationAsync();
 	}
 
-	_handleMapRegionChange = mapRegion => {
-		this.setState({ mapRegion: mapRegion });
+	_setMyLocation = event => {
+		const { latitude, longitude } = event.nativeEvent.coordinate;
+		const mapRegion = { ...this.state.mapRegion }
+		this.setState({
+			mapRegion: {
+				latitude: latitude,
+				longitude: longitude,
+				latitudeDelta: mapRegion.latitudeDelta,
+				longitudeDelta: mapRegion.longitudeDelta
+			}
+		});
+		if (
+			this.state.mapRegion &&
+			this.state.mapRegion.latitude &&
+			this.state.mapRegion.longitude
+		) {
+			this._gotoCurrentLocation();
+		}
 	};
+
+	_gotoCurrentLocation = () => {
+		const { mapRegion } = this.state;
+		this.map.animateToRegion({
+			latitude: mapRegion.latitude,
+			longitude: mapRegion.longitude,
+			latitudeDelta: mapRegion.latitudeDelta,
+			longitudeDelta: mapRegion.longitudeDelta
+		});
+	}
 
 	_getLocationAsync = async () => {
 		let { status } = await Permissions.askAsync(Permissions.LOCATION);
@@ -67,10 +93,11 @@ export default class Map extends Component {
 			<MapView
 				style={{ flex: 1 }}
 				region={this.state.mapRegion}
+				ref={map => { this.map = map }}
+				onUserLocationChange={this._setMyLocation}
 				showsUserLocation
 				loadingEnabled
-				//onRegionChange={this._handleMapRegionChange}
-				>
+			>
 			</MapView>
 		);
 	}

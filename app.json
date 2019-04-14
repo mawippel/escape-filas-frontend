@@ -10,7 +10,7 @@
     ],
     "version": "1.0.0",
     "orientation": "portrait",
-    "icon": "./images/logo.png",
+    "icon": "./images/squareLogo.png",
     "splash": {
       "image": "./assets/splash.png",
       "resizeMode": "contain",

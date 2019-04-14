@@ -1,42 +1,14 @@
-import React, { Component } from 'react';
-import { createStackNavigator, createAppContainer } from 'react-navigation';
-import Login from './components/login/Login';
-import Register from './components/register/Register'
-import Map from './components/map/Map'
+import React from 'react';
+import { createAppContainer } from 'react-navigation';
 import firebase from 'firebase';
+import firebaseConfig from './firebase/firebase.config'
+import navigationStack from './navigation/navigation.stack'
 
-
-const RootStack = createStackNavigator(
-  {
-    Login: Login,
-    Register: Register,
-    Map: Map
-  },
-  {
-    initialRouteName: 'Login',
-    headerMode: 'none',
-    navigationOptions: {
-      headerVisible: false,
-    }
-  }
-);
-
-// Initialize Firebase
-const firebaseConfig = {
-  apiKey: "AIzaSyC_77lDDol5am29eEt06IQ90WMbkRcZyw4",
-  authDomain: "escape-filas.firebaseapp.com",
-  databaseURL: "https://escape-filas.firebaseio.com",
-  projectId: "escape-filas",
-  storageBucket: "escape-filas.appspot.com",
-  messagingSenderId: "891946065112"
-};
 
 firebase.initializeApp(firebaseConfig);
 
-const AppContainer = createAppContainer(RootStack);
+const AppContainer = createAppContainer(navigationStack);
 
-export default class App extends Component {
-  render() {
-    return <AppContainer />;
-  }
+export default App = () => {
+  return <AppContainer />;
 }
