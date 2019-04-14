@@ -4,6 +4,7 @@ import {
 	Text
 } from 'react-native'
 import { MapView, Location, Permissions } from 'expo';
+import { Container, RequestButton, RequestButtonText } from './styles'
 
 const { width, height } = Dimensions.get("window")
 const SCREEN_WIDTH = width
@@ -26,10 +27,10 @@ export default class Map extends Component {
 	};
 
 	componentDidMount() {
-		this._getLocationAsync();
+		this.getLocationAsync();
 	}
 
-	_setMyLocation = event => {
+	setLiveLocation = event => {
 		const { latitude, longitude } = event.nativeEvent.coordinate;
 		const mapRegion = { ...this.state.mapRegion }
 		this.setState({
@@ -40,16 +41,15 @@ export default class Map extends Component {
 				longitudeDelta: mapRegion.longitudeDelta
 			}
 		});
-		if (
-			this.state.mapRegion &&
+		if (this.state.mapRegion &&
 			this.state.mapRegion.latitude &&
 			this.state.mapRegion.longitude
 		) {
-			this._gotoCurrentLocation();
+			this.goToCurrentLocation();
 		}
 	};
 
-	_gotoCurrentLocation = () => {
+	goToCurrentLocation = () => {
 		const { mapRegion } = this.state;
 		this.map.animateToRegion({
 			latitude: mapRegion.latitude,
@@ -59,7 +59,7 @@ export default class Map extends Component {
 		});
 	}
 
-	_getLocationAsync = async () => {
+	getLocationAsync = async () => {
 		let { status } = await Permissions.askAsync(Permissions.LOCATION);
 		if (status !== 'granted') {
 			this.setState({
@@ -90,15 +90,23 @@ export default class Map extends Component {
 			return <Text>Acesso a localização não permitido. Altere suas configurações.</Text>
 		}
 		return (
-			<MapView
-				style={{ flex: 1 }}
-				region={this.state.mapRegion}
-				ref={map => { this.map = map }}
-				onUserLocationChange={this._setMyLocation}
-				showsUserLocation
-				loadingEnabled
-			>
-			</MapView>
+			<>
+				<MapView
+					style={{ flex: 1 }}
+					region={this.state.mapRegion}
+					ref={map => { this.map = map }}
+					onUserLocationChange={this.setLiveLocation}
+					showsUserLocation
+					loadingEnabled
+				>
+				</MapView>
+
+				<Container>
+					<RequestButton onPress={() => { }}>
+						<RequestButtonText>Reporte uma Fila</RequestButtonText>
+					</RequestButton>
+				</Container>
+			</>
 		);
 	}
 }
