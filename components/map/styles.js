@@ -13,6 +13,7 @@ export const Container = styled.View`
   elevation: 3;
   border: 1px solid #ddd;
   align-items: center;
+  justify-content: center;
 `;
 
 export const RequestButton = styled.TouchableOpacity`
