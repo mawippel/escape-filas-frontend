@@ -4,7 +4,8 @@ import {
 	Text
 } from 'react-native'
 import { MapView, Location, Permissions } from 'expo';
-import { Container, RequestButton, RequestButtonText } from './styles'
+import { Container, RequestButton, RequestButtonText } from '../lineReporter/styles'
+import LineReporter from '../lineReporter/LineReporter';
 
 const { width, height } = Dimensions.get("window")
 const SCREEN_WIDTH = width
@@ -90,23 +91,14 @@ export default class Map extends Component {
 			return <Text>Acesso a localização não permitido. Altere suas configurações.</Text>
 		}
 		return (
-			<>
-				<MapView
-					style={{ flex: 1 }}
-					region={this.state.mapRegion}
-					ref={map => { this.map = map }}
-					onUserLocationChange={this.setLiveLocation}
-					showsUserLocation
-					loadingEnabled
-				>
-				</MapView>
-
-				<Container>
-					<RequestButton onPress={() => { }}>
-						<RequestButtonText>Reporte uma Fila</RequestButtonText>
-					</RequestButton>
-				</Container>
-			</>
+			<MapView
+				style={{ flex: 1 }}
+				region={this.state.mapRegion}
+				ref={map => { this.map = map }}
+				onUserLocationChange={this.setLiveLocation}
+				showsUserLocation
+				loadingEnabled
+			/>
 		);
 	}
 }
