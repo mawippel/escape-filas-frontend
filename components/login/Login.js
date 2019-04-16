@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import {
 	StyleSheet,
-	View,
+	KeyboardAvoidingView,
 	Alert
 } from 'react-native';
 import Logo from '../logo/Logo';
@@ -39,7 +39,7 @@ export default class Login extends Component {
 
 	render() {
 		return (
-			<View style={styles.container}>
+			<KeyboardAvoidingView style={styles.container} behavior="padding" enabled>
 				<Logo />
 				<LoginRegisterForm
 					emailStateHandler={this.emailStateHandler}
@@ -47,12 +47,12 @@ export default class Login extends Component {
 					handleAction={this.loginHandler}
 					type="Login"
 				/>
-				<BottomInitialInfo 
+				<BottomInitialInfo
 					firstText='Não possui uma conta ainda?'
 					secondText=' Registre-se'
 					buttonCallback={this.signUp}
 				/>
-			</View>
+			</KeyboardAvoidingView>
 		)
 	}
 }

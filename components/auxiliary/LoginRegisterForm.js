@@ -55,7 +55,7 @@ const styles = StyleSheet.create({
 	},
 	inputBox: {
 		width: '80%',
-		height: '15%',
+		height: 45,
 		paddingHorizontal: '4%',
 		marginVertical: '1%',
 		backgroundColor: 'rgba(255, 255,255,0.2)',
