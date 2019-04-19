@@ -6,6 +6,7 @@ import {
 import { MapView, Location, Permissions } from 'expo';
 import { Container, RequestButton, RequestButtonText } from '../lineReporter/styles'
 import LineReporter from '../lineReporter/LineReporter';
+import Search from '../search/Search';
 
 const { width, height } = Dimensions.get("window")
 const SCREEN_WIDTH = width
@@ -91,14 +92,17 @@ export default class Map extends Component {
 			return <Text>Acesso a localização não permitido. Altere suas configurações.</Text>
 		}
 		return (
-			<MapView
-				style={{ flex: 1 }}
-				region={this.state.mapRegion}
-				ref={map => { this.map = map }}
-				onUserLocationChange={this.setLiveLocation}
-				showsUserLocation
-				loadingEnabled
-			/>
+			<>
+				<MapView
+					style={{ flex: 1 }}
+					region={this.state.mapRegion}
+					ref={map => { this.map = map }}
+					onUserLocationChange={this.setLiveLocation}
+					showsUserLocation
+					loadingEnabled
+				/>
+				<Search />
+			</>
 		);
 	}
 }
