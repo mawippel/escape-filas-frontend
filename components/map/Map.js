@@ -1,12 +1,14 @@
 import React, { Component } from 'react';
 import {
 	Dimensions,
-	Text
+	Text,
+	Image
 } from 'react-native'
 import { MapView, Location, Permissions } from 'expo';
-import { Container, RequestButton, RequestButtonText } from '../lineReporter/styles'
 import LineReporter from '../lineReporter/LineReporter';
 import Search from '../search/Search';
+import { Back } from './styles'
+import backImage from "../../assets/back.png";
 
 const { width, height } = Dimensions.get("window")
 const SCREEN_WIDTH = width
@@ -25,7 +27,8 @@ export default class Map extends Component {
 			longitudeDelta: 0
 		},
 		hasLocationPermissions: false,
-		locationResult: null
+		locationResult: null,
+		destination: null
 	};
 
 	componentDidMount() {
@@ -84,6 +87,26 @@ export default class Map extends Component {
 		});
 	};
 
+	handleLocationSelected = (data, { geometry }) => {
+		const {
+			location: { lat: latitude, lng: longitude }
+		} = geometry;
+
+		console.log(data)
+
+		this.setState({
+			destination: {
+				latitude,
+				longitude,
+				title: data.structured_formatting.main_text
+			}
+		});
+	};
+
+	handleBack = () => {
+		this.setState({ destination: null });
+	};
+
 	render() {
 		if (this.state.locationResult === null) {
 			return <Text>Procurando a sua localização...</Text>
@@ -101,7 +124,15 @@ export default class Map extends Component {
 					showsUserLocation
 					loadingEnabled
 				/>
-				<Search />
+				{
+					this.state.destination ?
+					<>
+						<Back onPress={this.handleBack}>
+							<Image source={backImage} />
+						</Back>
+						<LineReporter />
+					</> : <Search onLocationSelected={this.handleLocationSelected} />
+				}
 			</>
 		);
 	}
