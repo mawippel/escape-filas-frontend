@@ -2,9 +2,11 @@ import React, { Component } from 'react';
 import {
 	Dimensions,
 	Text,
-	Image
+	Image,
+	View
 } from 'react-native'
 import { MapView, Location, Permissions } from 'expo';
+import Modal from "react-native-modal";
 import LineReporter from '../lineReporter/LineReporter';
 import Search from '../search/Search';
 import { Back } from './styles'
@@ -28,7 +30,8 @@ export default class Map extends Component {
 		},
 		hasLocationPermissions: false,
 		locationResult: null,
-		destination: null
+		destination: null,
+		isVisible: false
 	};
 
 	componentDidMount() {
@@ -105,6 +108,7 @@ export default class Map extends Component {
 
 	handleBack = () => {
 		this.setState({ destination: null });
+		this.setState({ isVisible: !this.state.isVisible }); // FIXME change to use prevstate
 	};
 
 	render() {
@@ -124,14 +128,20 @@ export default class Map extends Component {
 					showsUserLocation
 					loadingEnabled
 				/>
+				<Modal isVisible={this.state.isVisible}>
+					<View style={{ flex: 1 }}>
+						<Text>I am the modal content!</Text>
+					</View>
+				</Modal>
 				{
 					this.state.destination ?
-					<>
-						<Back onPress={this.handleBack}>
-							<Image source={backImage} />
-						</Back>
-						<LineReporter />
-					</> : <Search onLocationSelected={this.handleLocationSelected} />
+						<>
+							<Back onPress={this.handleBack}>
+								<Image source={backImage} />
+							</Back>
+							<LineReporter />
+						</> : 
+							<Search onLocationSelected={this.handleLocationSelected} />
 				}
 			</>
 		);
