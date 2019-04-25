@@ -15,7 +15,8 @@ export default class Search extends Component {
       onPress={this.props.onLocationSelected}
       query={{
         key: 'AIzaSyCF-4HJEeg4K0KJOEdMuqc5XiQkfM31M10',
-        language: 'pt'
+        language: 'pt',
+        components: 'country:br'
       }}
       textInputProps={{
         onFocus: () => {
