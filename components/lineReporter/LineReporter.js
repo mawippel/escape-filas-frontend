@@ -1,9 +1,9 @@
 import React from 'react';
 import { Container, RequestButton, RequestButtonText } from './styles';
 
-const LineReporter = () => (
+const LineReporter = (props) => (
   <Container>
-    <RequestButton onPress={() => { }}>
+    <RequestButton onPress={props.lineReporterHandler}>
       <RequestButtonText>Reporte uma Fila</RequestButtonText>
     </RequestButton>
   </Container>
