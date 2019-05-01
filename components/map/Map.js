@@ -2,14 +2,12 @@ import React, { Component } from 'react';
 import {
 	Dimensions,
 	Text,
-	Image,
 } from 'react-native'
 import { MapView, Location, Permissions } from 'expo';
-
 import LineReporter from '../lineReporter/LineReporter';
 import LineReporterModal from '../lineReporterModal/LineReporterModal'
 import Search from '../search/Search';
-import { Back } from './styles'
+import Back from '../auxiliary/Back';
 import backImage from "../../assets/back.png";
 
 const { width, height } = Dimensions.get("window")
@@ -71,7 +69,7 @@ export default class Map extends Component {
 		let { status } = await Permissions.askAsync(Permissions.LOCATION);
 		if (status !== 'granted') {
 			this.setState({
-				locationResult: 'Permissão negada a Localização',
+				locationResult: 'Permissão negada à Localização',
 			});
 		} else {
 			this.setState({ hasLocationPermissions: true });
@@ -114,6 +112,10 @@ export default class Map extends Component {
 		this.setState( prevState => ({ isVisible: !prevState.isVisible }));
 	}
 
+	handleCloseReportLine = () => {
+		this.setState( prevState => ({ isVisible: !prevState.isVisible }));
+	}
+
 	render() {
 		if (this.state.locationResult === null) {
 			return <Text>Procurando a sua localização...</Text>
@@ -134,17 +136,18 @@ export default class Map extends Component {
 				<LineReporterModal
 					isVisible={this.state.isVisible}
 					handleReportLine={this.handleReportLine}
+					closeLineReporterHandler={this.handleCloseReportLine}
 				/>
 				{
-					this.state.destination 
+					this.state.destination
 						?
 						<>
-							<Back onPress={this.handleBack}>
-								<Image source={backImage} />
-							</Back>
+							<Back
+								backHandler={this.handleBack}
+								imageSource={backImage} />
 							<LineReporter lineReporterHandler={this.handleReportLine} />
-						</> : 
-							<Search onLocationSelected={this.handleLocationSelected} />
+						</> :
+						<Search onLocationSelected={this.handleLocationSelected} />
 				}
 			</>
 		);

@@ -4,7 +4,10 @@ import Modal from "react-native-modal";
 import { Ionicons } from '@expo/vector-icons';
 
 const LineReporterModal = (props) => (
-  <Modal isVisible={props.isVisible}>
+  <Modal 
+    isVisible={props.isVisible}
+    onBackdropPress={props.closeLineReporterHandler}
+    >
     <View style={styles.modalContent}>
       <Text>Informe o nível da fila</Text>
       <View style={styles.viewTeste}>
