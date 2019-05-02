@@ -108,12 +108,12 @@ export default class Map extends Component {
 		this.setState({ destination: null });
 	};
 
-	handleReportLine = () => {
-		this.setState( prevState => ({ isVisible: !prevState.isVisible }));
+	handleReportLine = (quantity) => {
+		this.setState(prevState => ({ isVisible: !prevState.isVisible }));
 	}
 
-	handleCloseReportLine = () => {
-		this.setState( prevState => ({ isVisible: !prevState.isVisible }));
+	handleOpenCloseReportLine = () => {
+		this.setState(prevState => ({ isVisible: !prevState.isVisible }));
 	}
 
 	render() {
@@ -135,8 +135,8 @@ export default class Map extends Component {
 				/>
 				<LineReporterModal
 					isVisible={this.state.isVisible}
-					handleReportLine={this.handleReportLine}
-					closeLineReporterHandler={this.handleCloseReportLine}
+					handleReportLine={(quantity) => this.handleReportLine(quantity)}
+					closeLineReporterHandler={this.handleOpenCloseReportLine}
 				/>
 				{
 					this.state.destination
@@ -145,8 +145,9 @@ export default class Map extends Component {
 							<Back
 								backHandler={this.handleBack}
 								imageSource={backImage} />
-							<LineReporter lineReporterHandler={this.handleReportLine} />
-						</> :
+							<LineReporter lineReporterHandler={this.handleOpenCloseReportLine} />
+						</> 
+						:
 						<Search onLocationSelected={this.handleLocationSelected} />
 				}
 			</>

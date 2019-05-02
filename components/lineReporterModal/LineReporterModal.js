@@ -3,36 +3,43 @@ import { View, StyleSheet, TouchableOpacity, Text } from 'react-native';
 import Modal from "react-native-modal";
 import { Ionicons } from '@expo/vector-icons';
 
-const LineReporterModal = (props) => (
-  <Modal 
-    isVisible={props.isVisible}
-    onBackdropPress={props.closeLineReporterHandler}
-    >
-    <View style={styles.modalContent}>
-      <Text>Informe o nível da fila</Text>
-      <View style={styles.viewTeste}>
-        <TouchableOpacity 
-          style={styles.button}
-          onPress={props.handleReportLine}>
-            <Ionicons name="md-person" size={20} color="green" />
-        </TouchableOpacity>
-        <TouchableOpacity 
-          style={styles.button}
-          onPress={props.handleReportLine}>
-            <Ionicons name="md-person" size={20} color="yellow" />
-            <Ionicons name="md-person" size={20} color="yellow" />
-        </TouchableOpacity>
-        <TouchableOpacity 
-          style={styles.button}
-          onPress={props.handleReportLine}>
-            <Ionicons name="md-person" size={20} color="red" />
-            <Ionicons name="md-person" size={20} color="red" />
-            <Ionicons name="md-person" size={20} color="red" />
-        </TouchableOpacity>
+const LineReporterModal = (props) => {
+  
+  getIconButton = (color, size) => {
+    return <Ionicons name="md-person" size={size} color={color} />
+  }
+
+  return (
+    <Modal 
+      isVisible={props.isVisible}
+      onBackdropPress={props.closeLineReporterHandler}
+      >
+      <View style={styles.modalContent}>
+        <Text>Informe o nível da fila</Text>
+        <View style={styles.viewTeste}>
+          <TouchableOpacity 
+            style={styles.button}
+            onPress={() => props.handleReportLine(1)}>
+              {getIconButton('green', 20)}
+          </TouchableOpacity>
+          <TouchableOpacity 
+            style={styles.button}
+            onPress={() => props.handleReportLine(2)}>
+              {getIconButton('yellow', 20)}
+              {getIconButton('yellow', 20)}
+          </TouchableOpacity>
+          <TouchableOpacity 
+            style={styles.button}
+            onPress={() => props.handleReportLine(3)}>
+              {getIconButton('red', 20)}
+              {getIconButton('red', 20)}
+              {getIconButton('red', 20)}
+          </TouchableOpacity>
+        </View>
       </View>
-    </View>
-  </Modal>
-);
+    </Modal>
+  )
+};
 
 const styles = StyleSheet.create({
   viewTeste: {
