@@ -17,7 +17,7 @@ const ASPECT_RATIO = SCREEN_WIDTH / SCREEN_HEIGHT
 const LATITUDE_DELTA = 0.0922
 const LONGITUDE_DELTA = LATITUDE_DELTA * ASPECT_RATIO
 
-export default class Map extends Component {
+class Map extends Component {
 
 	state = {
 		mapRegion: {
@@ -109,6 +109,9 @@ export default class Map extends Component {
 	};
 
 	handleReportLine = (quantity) => {
+		// send to the backend
+		
+
 		this.setState(prevState => ({ isVisible: !prevState.isVisible }));
 	}
 
@@ -154,3 +157,5 @@ export default class Map extends Component {
 		);
 	}
 }
+
+export default Map
