@@ -6,13 +6,56 @@ const initialState = {
     loading: false
 };
 
+export const fetchLineStart = (state, action) => {
+    return updateObject( state, { loading: true } );
+};
+
+export const fetchLineFail = (state, action) => {
+    return updateObject( state, { loading: false } );
+};
+
+export const fetchLineSuccess = (state, action) => {
+    const newLines = updateObject(action.lines)
+    return updateObject( state, { lines: newLines } );
+};
+
+export const reportLineStart = (state, action) => {
+    return updateObject( state, { loading: true } );
+};
+
+export const reportLineFail = (state, action) => {
+    return updateObject( state, { loading: false } );
+};
+
+export const reportLineSuccess = (state, action) => {
+    return updateObject( state, { loading: false } );
+};
+
+export const reportLocationStart = (state, action) => {
+    return updateObject( state, { loading: true } );
+};
+
+export const reportLocationFail = (state, action) => {
+    return updateObject( state, { loading: false } );
+};
+
+export const reportLocationSuccess = (state, action) => {
+    return updateObject( state, { loading: false } );
+};
+
 const reducer = (state = initialState, action) => {
     switch (action.type) {
-        case actionTypes.PURCHASE_INIT: return purchaseInit(state, action);
-        case actionTypes.PURCHASE_BURGER_START: return purchaseBurgerStart(state, action);
-        case actionTypes.PURCHASE_BURGER_SUCCESS: return purchaseBurgerSuccess(state, action)
-        case actionTypes.PURCHASE_BURGER_FAIL: return purchaseBurgerFail(state, action);
-        case actionTypes.FETCH_ORDERS_START: return fetchOrdersStart(state, action);
+        case actionTypes.FETCH_LINES_START: return fetchLineStart(state, action);
+        case actionTypes.FETCH_LINES_SUCCESS: return fetchLineSuccess(state, action);
+        case actionTypes.FETCH_LINES_FAIL: return fetchLineFail(state, action);
+
+        case actionTypes.REPORT_LINE_START: return reportLineStart(state, action);
+        case actionTypes.REPORT_LINE_SUCCESS: return reportLineSuccess(state, action);
+        case actionTypes.REPORT_LINE_FAIL: return reportLineFail(state, action);
+
+        case actionTypes.REPORT_LOCATION_START: return reportLocationStart(state, action);
+        case actionTypes.REPORT_LOCATION_SUCCESS: return reportLocationSuccess(state, action);
+        case actionTypes.REPORT_LOCATION_FAIL: return reportLocationFail(state, action);
         default: return state;
     }
 };
