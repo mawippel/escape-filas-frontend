@@ -29,6 +29,6 @@ export default App = () => {
     <Provider store={store}>
       <StatusBar backgroundColor='white' barStyle="dark-content" />
       <AppContainer />
-      </Provider>
+    </Provider>
   );
 }

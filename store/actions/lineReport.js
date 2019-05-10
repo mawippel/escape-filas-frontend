@@ -60,7 +60,7 @@ export const reportLocationSuccess = () => {
     };
 };
 
-export const reportLineFail = (error) => {
+export const reportLocationFail = (error) => {
     return {
         type: actionTypes.REPORT_LOCATION_FAIL,
         error: error
@@ -70,12 +70,17 @@ export const reportLineFail = (error) => {
 export const fetchLines = () => {
     return dispatch => {
         dispatch(fetchLineStart());
-        axios.get('/')
+        console.log('entrou')
+        axios.post('', {
+            query: `{ reports { id name placeId } }`
+        }
+        )
             .then(res => {
-                console.log(res)
+                console.log(res.data)
                 dispatch(fetchLineSuccess(res));
             })
             .catch(err => {
+                console.log('deu pal')
                 dispatch(fetchLineFail(err));
             });
     };

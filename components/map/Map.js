@@ -3,6 +3,8 @@ import {
 	Dimensions,
 	Text,
 } from 'react-native'
+import { connect } from 'react-redux';
+import * as actions from '../../store/actions/index';
 import { MapView, Location, Permissions } from 'expo';
 import LineReporter from '../lineReporter/LineReporter';
 import LineReporterModal from '../lineReporterModal/LineReporterModal'
@@ -34,6 +36,8 @@ class Map extends Component {
 
 	componentDidMount() {
 		this.getLocationAsync();
+		this.props.onFetchLines();
+		console.log(this.state.lines)
 	}
 
 	setLiveLocation = event => {
@@ -158,4 +162,17 @@ class Map extends Component {
 	}
 }
 
-export default Map
+const mapStateToProps = state => {
+    return {
+		lines: state.lines,
+		loading: state.loading
+    };
+};
+
+const mapDispatchToProps = dispatch => {
+    return {
+        onFetchLines: () => dispatch( actions.fetchLines() )
+    };
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(Map);
