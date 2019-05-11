@@ -4,9 +4,11 @@ import axios from '../../axios/axios';
 export const reportLine = (placeID, placeName) => {
     return dispatch => {
         dispatch(reportLineStart());
-        axios.get('/')
+        axios.post('', {
+            query: `mutation { addReport (name:"${placeName}", placeId:"${placeID}") {id name placeId } }`
+        }
+        )
             .then(res => {
-                console.log(res)
                 dispatch(reportLineSuccess(res));
             })
             .catch(err => {
@@ -37,9 +39,11 @@ export const reportLineFail = (error) => {
 export const reportLocation = (latitude, longitude) => {
     return dispatch => {
         dispatch(reportLocationStart());
-        axios.get('/')
+        axios.post('', {
+            query: `mutation { addReportLocation (lat:"${latitude}", lng:"${longitude}") {id name placeId } }`
+        }
+        )
             .then(res => {
-                console.log(res)
                 dispatch(reportLocationSuccess(res));
             })
             .catch(err => {
@@ -70,17 +74,14 @@ export const reportLocationFail = (error) => {
 export const fetchLines = () => {
     return dispatch => {
         dispatch(fetchLineStart());
-        console.log('entrou')
         axios.post('', {
             query: `{ reports { id name placeId } }`
         }
         )
             .then(res => {
-                console.log(res.data)
                 dispatch(fetchLineSuccess(res));
             })
             .catch(err => {
-                console.log('deu pal')
                 dispatch(fetchLineFail(err));
             });
     };

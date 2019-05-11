@@ -11,6 +11,7 @@ import LineReporterModal from '../lineReporterModal/LineReporterModal'
 import Search from '../search/Search';
 import Back from '../auxiliary/Back';
 import backImage from "../../assets/back.png";
+import { CenteredText } from '../styles';
 
 const { width, height } = Dimensions.get("window")
 const SCREEN_WIDTH = width
@@ -37,7 +38,6 @@ class Map extends Component {
 	componentDidMount() {
 		this.getLocationAsync();
 		this.props.onFetchLines();
-		console.log(this.state.lines)
 	}
 
 	setLiveLocation = event => {
@@ -67,6 +67,7 @@ class Map extends Component {
 			latitudeDelta: mapRegion.latitudeDelta,
 			longitudeDelta: mapRegion.longitudeDelta
 		});
+		this.props.onReportLocation(mapRegion.latitude, mapRegion.longitude)
 	}
 
 	getLocationAsync = async () => {
@@ -97,13 +98,12 @@ class Map extends Component {
 			location: { lat: latitude, lng: longitude }
 		} = geometry;
 
-		console.log(data)
-
 		this.setState({
 			destination: {
 				latitude,
 				longitude,
-				title: data.structured_formatting.main_text
+				placeID: data.id,
+				placeName: data.structured_formatting.main_text
 			}
 		});
 	};
@@ -113,9 +113,8 @@ class Map extends Component {
 	};
 
 	handleReportLine = (quantity) => {
-		// send to the backend
-		
-
+		const line = {...this.state.destination}
+		this.props.onReportLine(line.placeID, line.placeName) // TODO add quantity
 		this.setState(prevState => ({ isVisible: !prevState.isVisible }));
 	}
 
@@ -125,10 +124,10 @@ class Map extends Component {
 
 	render() {
 		if (this.state.locationResult === null) {
-			return <Text>Procurando a sua localização...</Text>
+			return <CenteredText>Procurando a sua localização...</CenteredText>
 		}
 		if (this.state.hasLocationPermissions === false) {
-			return <Text>Acesso a localização não permitido. Altere suas configurações.</Text>
+			return <CenteredText>Acesso a localização não permitido. Altere suas configurações.</CenteredText>
 		}
 		return (
 			<>
@@ -170,9 +169,11 @@ const mapStateToProps = state => {
 };
 
 const mapDispatchToProps = dispatch => {
-    return {
-        onFetchLines: () => dispatch( actions.fetchLines() )
-    };
+	return {
+		onFetchLines: () => dispatch(actions.fetchLines()),
+		onReportLine: (placeID, placeName) => dispatch(actions.reportLine(placeID, placeName)),
+		onReportLocation: (lat, lgn) => dispatch(actions.reportLocation(lat, lgn))
+	};
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(Map);
