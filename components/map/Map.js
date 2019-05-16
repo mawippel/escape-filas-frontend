@@ -154,7 +154,12 @@ class Map extends Component {
 							<LineReporter lineReporterHandler={this.handleOpenCloseReportLine} />
 						</> 
 						:
-						<Search onLocationSelected={this.handleLocationSelected} />
+						<>
+							<Search onLocationSelected={this.handleLocationSelected} />
+							<Back
+								backHandler={this.handleBack}
+								imageSource={backImage} />
+						</>
 				}
 			</>
 		);
@@ -177,3 +182,11 @@ const mapDispatchToProps = dispatch => {
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(Map);
+
+const searchStyle = {
+	container: {
+    position: "absolute",
+    top: Platform.select({ ios: 60, android: 40 }),
+    width: "90%"
+  }
+}
