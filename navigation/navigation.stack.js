@@ -1,14 +1,16 @@
 import { createStackNavigator } from 'react-navigation';
 import Login from '../components/login/Login';
 import Register from '../components/register/Register'
-import MainContainer from '../components/main/MainContainer';
+import Lines from '../components/lines/Lines';
+import Map from '../components/map/Map';
 
 createRoutingStack = () => {
   return createStackNavigator(
     {
       Login: Login,
       Register: Register,
-      Map: MainContainer
+      Map: Map,
+      Lines: Lines
     },
     {
       initialRouteName: 'Login',

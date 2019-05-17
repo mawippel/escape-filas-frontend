@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import {
 	Dimensions,
-	Text,
 } from 'react-native'
 import { connect } from 'react-redux';
 import * as actions from '../../store/actions/index';
@@ -10,8 +9,10 @@ import LineReporter from '../lineReporter/LineReporter';
 import LineReporterModal from '../lineReporterModal/LineReporterModal'
 import Search from '../search/Search';
 import Back from '../auxiliary/Back';
+import ButtonSeeLines from '../auxiliary/ButtonSeeLines';
 import backImage from "../../assets/back.png";
 import { CenteredText } from '../styles';
+import { withNavigation } from 'react-navigation';
 
 const { width, height } = Dimensions.get("window")
 const SCREEN_WIDTH = width
@@ -112,8 +113,12 @@ class Map extends Component {
 		this.setState({ destination: null });
 	};
 
+	navigateToLines = () => {
+		this.props.navigation.navigate('Lines')
+	}
+
 	handleReportLine = (quantity) => {
-		const line = {...this.state.destination}
+		const line = { ...this.state.destination }
 		this.props.onReportLine(line.placeID, line.placeName) // TODO add quantity
 		this.setState(prevState => ({ isVisible: !prevState.isVisible }));
 	}
@@ -152,12 +157,12 @@ class Map extends Component {
 								backHandler={this.handleBack}
 								imageSource={backImage} />
 							<LineReporter lineReporterHandler={this.handleOpenCloseReportLine} />
-						</> 
+						</>
 						:
 						<>
 							<Search onLocationSelected={this.handleLocationSelected} />
-							<Back
-								backHandler={this.handleBack}
+							<ButtonSeeLines
+								backHandler={this.navigateToLines} // TODO change image
 								imageSource={backImage} />
 						</>
 				}
@@ -167,10 +172,10 @@ class Map extends Component {
 }
 
 const mapStateToProps = state => {
-    return {
+	return {
 		lines: state.lines,
 		loading: state.loading
-    };
+	};
 };
 
 const mapDispatchToProps = dispatch => {
@@ -182,11 +187,3 @@ const mapDispatchToProps = dispatch => {
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(Map);
-
-const searchStyle = {
-	container: {
-    position: "absolute",
-    top: Platform.select({ ios: 60, android: 40 }),
-    width: "90%"
-  }
-}
