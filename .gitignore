@@ -2,6 +2,8 @@
 .watchmanconfig
 package-lock.json
 
+.vscode
+
 # Logs
 logs
 *.log

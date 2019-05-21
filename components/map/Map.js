@@ -114,7 +114,7 @@ class Map extends Component {
 	};
 
 	navigateToLines = () => {
-		this.props.navigation.navigate('Lines')
+		this.props.navigation.push('Lines')
 	}
 
 	handleReportLine = (quantity) => {

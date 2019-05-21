@@ -17,7 +17,7 @@ export default class Login extends Component {
 	}
 
 	signUp = () => {
-		this.props.navigation.navigate('Register')
+		this.props.navigation.push('Register')
 	}
 
 	emailStateHandler = (email) => {
@@ -33,7 +33,7 @@ export default class Login extends Component {
 		firebase
 			.auth()
 			.signInWithEmailAndPassword(email, password)
-			.then(() => this.props.navigation.navigate('Map'))
+			.then(this.props.navigation.push('Map'))
 			.catch(error => Alert.alert('Erro', `${error}`))
 	}
 
