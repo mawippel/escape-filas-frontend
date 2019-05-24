@@ -5,7 +5,7 @@ export const reportLine = (placeID, placeName) => {
     return dispatch => {
         dispatch(reportLineStart());
         axios.post('', {
-            query: `mutation { addReport (name:"${placeName}", placeId:"${placeID}") {id name placeId } }`
+            query: `mutation { addReport (uid:"${1}", name:"${placeName}", placeId:"${placeID}") {name placeId } }`
         }
         )
             .then(res => {
@@ -40,7 +40,7 @@ export const reportLocation = (latitude, longitude) => {
     return dispatch => {
         dispatch(reportLocationStart());
         axios.post('', {
-            query: `mutation { addReportLocation (lat:"${latitude}", lng:"${longitude}") {id name placeId } }`
+            query: `mutation { addReportLocation (uid:"${1}", lat:"${latitude}", lng:"${longitude}") {name placeId } }`
         }
         )
             .then(res => {
@@ -75,11 +75,11 @@ export const fetchLines = () => {
     return dispatch => {
         dispatch(fetchLineStart());
         axios.post('', {
-            query: `{ reports { id name placeId } }`
+            query: `{ reports { name placeId } }`
         }
         )
             .then(res => {
-                dispatch(fetchLineSuccess(res));
+                dispatch(fetchLineSuccess(res.data.data.reports));
             })
             .catch(err => {
                 dispatch(fetchLineFail(err));

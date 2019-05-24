@@ -12,7 +12,6 @@ import Back from '../auxiliary/Back';
 import ButtonSeeLines from '../auxiliary/ButtonSeeLines';
 import backImage from "../../assets/back.png";
 import { CenteredText } from '../styles';
-import { withNavigation } from 'react-navigation';
 
 const { width, height } = Dimensions.get("window")
 const SCREEN_WIDTH = width
@@ -38,7 +37,6 @@ class Map extends Component {
 
 	componentDidMount() {
 		this.getLocationAsync();
-		this.props.onFetchLines();
 	}
 
 	setLiveLocation = event => {
@@ -134,6 +132,7 @@ class Map extends Component {
 		if (this.state.hasLocationPermissions === false) {
 			return <CenteredText>Acesso a localização não permitido. Altere suas configurações.</CenteredText>
 		}
+
 		return (
 			<>
 				<MapView
@@ -171,19 +170,12 @@ class Map extends Component {
 	}
 }
 
-const mapStateToProps = state => {
-	return {
-		lines: state.lines,
-		loading: state.loading
-	};
-};
 
 const mapDispatchToProps = dispatch => {
 	return {
-		onFetchLines: () => dispatch(actions.fetchLines()),
 		onReportLine: (placeID, placeName) => dispatch(actions.reportLine(placeID, placeName)),
 		onReportLocation: (lat, lgn) => dispatch(actions.reportLocation(lat, lgn))
 	};
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(Map);
+export default connect(null, mapDispatchToProps)(Map);

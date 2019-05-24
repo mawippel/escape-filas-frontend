@@ -1,7 +1,7 @@
 import * as actionTypes from '../actions/actionTypes';
 import { updateObject } from '../utility';
 
-const initialState = {
+export const initialState = {
     lines: [],
     loading: false
 };
@@ -15,8 +15,8 @@ export const fetchLineFail = (state, action) => {
 };
 
 export const fetchLineSuccess = (state, action) => {
-    const newLines = updateObject(action.lines)
-    return updateObject( state, { lines: newLines } );
+    const lines = action.lines
+    return updateObject( state, { lines } );
 };
 
 export const reportLineStart = (state, action) => {
