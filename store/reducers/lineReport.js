@@ -15,8 +15,10 @@ export const fetchLineFail = (state, action) => {
 };
 
 export const fetchLineSuccess = (state, action) => {
-    const lines = action.lines
-    return updateObject( state, { lines } );
+    return updateObject( state, {
+        lines: action.lines,
+        loading: false
+    } );
 };
 
 export const reportLineStart = (state, action) => {

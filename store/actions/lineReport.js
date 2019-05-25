@@ -5,7 +5,7 @@ export const reportLine = (placeID, placeName) => {
     return dispatch => {
         dispatch(reportLineStart());
         axios.post('', {
-            query: `mutation { addReport (uid:"${1}", name:"${placeName}", placeId:"${placeID}") {name placeId } }`
+            query: `mutation { addReport (name:"${placeName}", placeId:"${placeID}", quantity:${123}) {name placeId } }`
         }
         )
             .then(res => {
@@ -79,7 +79,15 @@ export const fetchLines = () => {
         }
         )
             .then(res => {
-                dispatch(fetchLineSuccess(res.data.data.reports));
+                const fetchedLines = [];
+                for (let key in res.data.data.reports) {
+                    fetchedLines.push({
+                        ...res.data[key],
+                        id: key,
+                        ...res.data.data.reports[key]
+                    });
+                }
+                dispatch(fetchLineSuccess(fetchedLines));
             })
             .catch(err => {
                 dispatch(fetchLineFail(err));

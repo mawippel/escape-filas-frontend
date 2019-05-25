@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { View } from 'react-native';
+import { View, Text } from 'react-native';
 import { connect } from 'react-redux';
 import * as actions from '../../store/actions/index';
 
@@ -11,7 +11,25 @@ class Lines extends Component {
   
   render() {
     console.log(this.props.lines);
-    return <View />;
+    console.log(this.props.loading);
+    if (this.props.loading) {
+      <View>
+        <Text>
+          aaa
+          aaa
+          Loading...
+        </Text>
+      </View>
+    }
+    return (
+      <View>
+        <Text>
+          aaa
+          aaa
+          Carregou
+        </Text>
+      </View>
+    );
   }
 }
 
