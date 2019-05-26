@@ -15,10 +15,6 @@ createRoutingStack = () => {
     },
     {
       initialRouteName: 'Login',
-      headerMode: 'none',
-      navigationOptions: {
-        headerVisible: false,
-      },
       transitionConfig
     }
   )

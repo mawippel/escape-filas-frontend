@@ -24,7 +24,10 @@
     ],
     "ios": {
       "supportsTablet": true,
-      "bundleIdentifier": "com.br.furb.escapefilas"
+      "bundleIdentifier": "com.br.furb.escapefilas",
+      "config": {
+        "googleMapsApiKey": "AIzaSyCF-4HJEeg4K0KJOEdMuqc5XiQkfM31M10"
+      }
     },
     "android": {
       "package": "com.br.furb.escapefilas",

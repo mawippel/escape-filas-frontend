@@ -75,7 +75,7 @@ export const fetchLines = () => {
     return dispatch => {
         dispatch(fetchLineStart());
         axios.post('', {
-            query: `{ reports { name placeId } }`
+            query: `{ reports { name placeId quantity } }`
         }
         )
             .then(res => {

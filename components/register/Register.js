@@ -11,6 +11,10 @@ import BottomInitialInfo from '../auxiliary/BottomInitialInfo';
 
 export default class Signup extends Component {
 
+	static navigationOptions = {
+    header: null
+  };
+
 	state = { 
 		email: '', 
 		password: ''
