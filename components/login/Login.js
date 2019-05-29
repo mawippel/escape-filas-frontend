@@ -2,9 +2,11 @@ import React, { Component } from 'react';
 import {
 	StyleSheet,
 	KeyboardAvoidingView,
-	Alert
+	Alert,
+	Image,
+	View,
+	PixelRatio
 } from 'react-native';
-import Logo from '../logo/Logo';
 import LoginRegisterForm from '../auxiliary/LoginRegisterForm';
 import firebase from 'firebase'
 import BottomInitialInfo from '../auxiliary/BottomInitialInfo';
@@ -45,18 +47,22 @@ export default class Login extends Component {
 	render() {
 		return (
 			<KeyboardAvoidingView style={styles.container} behavior="padding">
-					<Logo />
-					<LoginRegisterForm
-						emailStateHandler={this.emailStateHandler}
-						passwordStateHandler={this.passwordStateHandler}
-						handleAction={this.loginHandler}
-						type="Login"
-					/>
-					<BottomInitialInfo
-						firstText='Não possui uma conta ainda?'
-						secondText=' Registre-se'
-						buttonCallback={this.signUp}
-					/>
+					<Image source={require('../../images/logo.png')} 
+					style={{...styles.logo, width: PixelRatio.getPixelSizeForLayoutSize(110), 
+						height: PixelRatio.getPixelSizeForLayoutSize(95)}} />
+					<View style={styles.form}>
+						<LoginRegisterForm
+							emailStateHandler={this.emailStateHandler}
+							passwordStateHandler={this.passwordStateHandler}
+							handleAction={this.loginHandler}
+							type="Login"
+						/>
+						<BottomInitialInfo
+							firstText='Não possui uma conta ainda?'
+							secondText=' Registre-se'
+							buttonCallback={this.signUp}
+						/>
+					</View>
 			</KeyboardAvoidingView>
 		)
 	}
@@ -64,9 +70,20 @@ export default class Login extends Component {
 
 const styles = StyleSheet.create({
 	container: {
-		backgroundColor: '#ffffff',
-		flex: 1,
-		alignItems: 'center',
-		justifyContent: 'center'
-	}
+    flex: 1,
+    backgroundColor: '#FFF',
+    alignItems: "center",
+    justifyContent: "space-between"
+  },
+  logo: {
+    flex: 1,
+    width: "100%",
+    resizeMode: "contain",
+    alignSelf: "center"
+  },
+  form: {
+    flex: 1,
+    justifyContent: "center",
+    width: "80%"
+  }
 });

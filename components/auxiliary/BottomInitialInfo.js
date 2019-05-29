@@ -24,18 +24,17 @@ const BottomInitialInfo = (props) => {
 
 const styles = StyleSheet.create({
     signupTextCont: {
-        backgroundColor: '#1a1a1a',
         justifyContent: 'center',
         paddingVertical: 16,
         flexDirection: 'row',
         width: '100%'
     },
     signupText: {
-        color: 'rgba(255,255,255,0.6)',
+        color: '#000',
         fontSize: 16
     },
     signupButton: {
-        color: '#ffffff',
+        color: '#666',
         fontSize: 16,
         fontWeight: '500'
     }

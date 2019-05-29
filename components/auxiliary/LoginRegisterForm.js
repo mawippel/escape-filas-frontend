@@ -11,23 +11,23 @@ export default class LoginRegisterForm extends Component {
 
 	render() {
 		return (
-			<View style={styles.container}>
+			<>
 				<TextInput
 					style={styles.inputBox}
-					underlineColorAndroid='rgba(0,0,0,0)'
+					underlineColorAndroid='#bfbfbf'
 					placeholder="Email"
-					placeholderTextColor="#ffffff"
-					selectionColor="#fff"
+					placeholderTextColor="#000"
+					selectionColor="#000"
 					keyboardType="email-address"
 					onSubmitEditing={() => this.password.focus()}
 					onChangeText={(email) => this.props.emailStateHandler(email)}
 				/>
 				<TextInput
 					style={styles.inputBox}
-					underlineColorAndroid='rgba(0,0,0,0)'
+					underlineColorAndroid='#bfbfbf'
 					placeholder="Senha"
 					secureTextEntry={true}
-					placeholderTextColor="#ffffff"
+					placeholderTextColor="#000"
 					ref={(password) => this.password = password}
 					onChangeText={(password) => this.props.passwordStateHandler(password)}
 				/>
@@ -38,42 +38,34 @@ export default class LoginRegisterForm extends Component {
 						{this.props.type}
 					</Text>
 				</TouchableOpacity>
-			</View>
+			</>
 		)
 	}
 
 }
 
 const styles = StyleSheet.create({
-	container: {
-		flexGrow: 1,
-		backgroundColor: '#1a1a1a',
-		justifyContent: 'center',
-		alignItems: 'center',
-		width: '100%',
-		height: '30%'
-	},
 	inputBox: {
-		width: '80%',
-		height: 45,
-		paddingHorizontal: '4%',
-		marginVertical: '1%',
-		backgroundColor: 'rgba(255, 255,255,0.2)',
-		borderRadius: 25,
-		fontSize: 16,
-		color: '#ffffff'
+		height: 40,
+		borderColor: '#bfbfbf',
+		borderBottomWidth: StyleSheet.hairlineWidth,
+		marginBottom: 20
 	},
 	button: {
-		width: '80%',
-		marginVertical: 10,
-		paddingVertical: 13,
-		backgroundColor: 'rgba(255, 255,255,0.2)',
-		borderRadius: 25
+		width: "100%",
+		alignItems: "center",
+		justifyContent: "center",
+		backgroundColor: '#000',
+		marginBottom: 12,
+		paddingVertical: 12,
+		borderRadius: 4,
+		borderWidth: StyleSheet.hairlineWidth,
+		borderColor: "rgba(255,255,255,0.7)"
 	},
 	buttonText: {
 		fontSize: 16,
 		fontWeight: '500',
-		color: '#ffffff',
+		color: '#FFF',
 		textAlign: 'center'
 	}
 });
