@@ -9,6 +9,7 @@ import LoginRegisterForm from '../auxiliary/LoginRegisterForm';
 import firebase from 'firebase'
 import BottomInitialInfo from '../auxiliary/BottomInitialInfo';
 
+
 export default class Login extends Component {
 
 	static navigationOptions = {
@@ -43,19 +44,19 @@ export default class Login extends Component {
 
 	render() {
 		return (
-			<KeyboardAvoidingView style={styles.container} behavior="padding" enabled>
-				<Logo />
-				<LoginRegisterForm
-					emailStateHandler={this.emailStateHandler}
-					passwordStateHandler={this.passwordStateHandler}
-					handleAction={this.loginHandler}
-					type="Login"
-				/>
-				<BottomInitialInfo
-					firstText='Não possui uma conta ainda?'
-					secondText=' Registre-se'
-					buttonCallback={this.signUp}
-				/>
+			<KeyboardAvoidingView style={styles.container} behavior="padding">
+					<Logo />
+					<LoginRegisterForm
+						emailStateHandler={this.emailStateHandler}
+						passwordStateHandler={this.passwordStateHandler}
+						handleAction={this.loginHandler}
+						type="Login"
+					/>
+					<BottomInitialInfo
+						firstText='Não possui uma conta ainda?'
+						secondText=' Registre-se'
+						buttonCallback={this.signUp}
+					/>
 			</KeyboardAvoidingView>
 		)
 	}
