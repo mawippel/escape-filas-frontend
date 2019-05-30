@@ -48,8 +48,7 @@ export default class Login extends Component {
 		return (
 			<KeyboardAvoidingView style={styles.container} behavior="padding">
 					<Image source={require('../../images/logo.png')} 
-					style={{...styles.logo, width: PixelRatio.getPixelSizeForLayoutSize(110), 
-						height: PixelRatio.getPixelSizeForLayoutSize(95)}} />
+					style={{...styles.logo}} />
 					<View style={styles.form}>
 						<LoginRegisterForm
 							emailStateHandler={this.emailStateHandler}
@@ -79,7 +78,8 @@ const styles = StyleSheet.create({
     flex: 1,
     width: "100%",
     resizeMode: "contain",
-    alignSelf: "center"
+		alignSelf: "center",
+		top: 5
   },
   form: {
     flex: 1,
