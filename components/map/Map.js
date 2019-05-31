@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import {
 	Dimensions,
+	ActivityIndicator,
+	Alert,
 } from 'react-native'
 import { connect } from 'react-redux';
 import * as actions from '../../store/actions/index';
@@ -11,7 +13,7 @@ import Search from '../search/Search';
 import Back from '../auxiliary/Back';
 import ButtonSeeLines from '../auxiliary/ButtonSeeLines';
 import backImage from "../../assets/back.png";
-import { CenteredText } from '../styles';
+import { CenteredView } from '../styles';
 
 const { width, height } = Dimensions.get("window")
 const SCREEN_WIDTH = width
@@ -23,8 +25,8 @@ const LONGITUDE_DELTA = LATITUDE_DELTA * ASPECT_RATIO
 class Map extends Component {
 
 	static navigationOptions = {
-    header: null
-  };
+		header: null
+	};
 
 	state = {
 		mapRegion: {
@@ -121,7 +123,7 @@ class Map extends Component {
 
 	handleReportLine = (quantity) => {
 		const line = { ...this.state.destination }
-		this.props.onReportLine(line.placeID, line.placeName) // TODO add quantity
+		this.props.onReportLine(line.placeID, line.placeName, quantity)
 		this.setState(prevState => ({ isVisible: !prevState.isVisible }));
 	}
 
@@ -131,10 +133,16 @@ class Map extends Component {
 
 	render() {
 		if (this.state.locationResult === null) {
-			return <CenteredText>Procurando a sua localização...</CenteredText>
+			return (
+				<CenteredView>
+					<ActivityIndicator size="large" color="#000" />
+				</CenteredView>
+			)
 		}
 		if (this.state.hasLocationPermissions === false) {
-			return <CenteredText>Acesso a localização não permitido. Altere suas configurações.</CenteredText>
+			Alert.alert('Erro', 'Acesso a localização não permitido. Altere suas configurações')
+			this.props.navigation.navigate('Login')
+			return null
 		}
 
 		return (
@@ -177,7 +185,7 @@ class Map extends Component {
 
 const mapDispatchToProps = dispatch => {
 	return {
-		onReportLine: (placeID, placeName) => dispatch(actions.reportLine(placeID, placeName)),
+		onReportLine: (placeID, placeName, quantity) => dispatch(actions.reportLine(placeID, placeName, quantity)),
 		onReportLocation: (lat, lgn) => dispatch(actions.reportLocation(lat, lgn))
 	};
 };

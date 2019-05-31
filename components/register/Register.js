@@ -3,13 +3,13 @@ import {
 	StyleSheet,
 	KeyboardAvoidingView,
 	Alert,
-	Image,
-	View,
-	PixelRatio
+	View
 } from 'react-native';
 import LoginRegisterForm from '../auxiliary/LoginRegisterForm';
 import firebase from 'firebase'
 import BottomInitialInfo from '../auxiliary/BottomInitialInfo';
+import Logo from '../logo/Logo';
+
 
 export default class Signup extends Component {
 
@@ -38,21 +38,21 @@ export default class Signup extends Component {
 		firebase
 			.auth()
 			.createUserWithEmailAndPassword(this.state.email, this.state.password)
-			.then(this.props.navigation.push('Map'))
+			.then(e => this.props.navigation.push('Map'))
 			.catch(error => Alert.alert('Erro', `${error}`))
 	}
 
 	render() {
 		return (
 			<KeyboardAvoidingView style={styles.container} behavior="padding" enabled>
-				<Image source={require('../../images/logo.png')}
-					style={{ ...styles.logo }} />
+				<Logo />
 				<View style={styles.form}>
 					<LoginRegisterForm
 						emailStateHandler={this.emailStateHandler}
 						passwordStateHandler={this.passwordStateHandler}
 						handleAction={this.registerHandler}
-						type="Registre-se" />
+						type="Registre-se"
+					/>
 					<BottomInitialInfo
 						firstText='Já possui uma conta?'
 						secondText=' Login'
@@ -80,6 +80,7 @@ const styles = StyleSheet.create({
 	},
 	form: {
 		flex: 1,
+		marginTop: 20,
 		justifyContent: "center",
 		width: "80%"
 	}

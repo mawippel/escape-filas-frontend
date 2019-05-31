@@ -1,11 +1,11 @@
 import * as actionTypes from './actionTypes';
 import axios from '../../axios/axios';
 
-export const reportLine = (placeID, placeName) => {
+export const reportLine = (placeID, placeName, quantity) => {
     return dispatch => {
         dispatch(reportLineStart());
         axios.post('', {
-            query: `mutation { addReport (name:"${placeName}", placeId:"${placeID}", quantity:${123}) {name placeId } }`
+            query: `mutation { addReport (name:"${placeName}", placeId:"${placeID}", quantity:${quantity}) {name placeId } }`
         }
         )
             .then(res => {
