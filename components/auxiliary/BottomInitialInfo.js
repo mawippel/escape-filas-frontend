@@ -1,43 +1,23 @@
 import React from 'react';
 
 import { 
-    View, 
-    Text, 
-    StyleSheet,
     TouchableOpacity
 } from 'react-native';
+import { ViewBottomInfo, DefaultText, BoldText } from './styles'
 
 const BottomInitialInfo = (props) => {
     return (
-        <View style={styles.signupTextCont}>
-            <Text style={styles.signupText}>
+        <ViewBottomInfo>
+            <DefaultText>
                 {props.firstText}
-            </Text>
+            </DefaultText>
             <TouchableOpacity onPress={props.buttonCallback}>
-                <Text style={styles.signupButton}>
+                <BoldText>
                     {props.secondText}
-                </Text>
+                </BoldText>
             </TouchableOpacity>
-        </View>
+        </ViewBottomInfo>
     )
 }
-
-const styles = StyleSheet.create({
-    signupTextCont: {
-        justifyContent: 'center',
-        paddingVertical: 16,
-        flexDirection: 'row',
-        width: '100%'
-    },
-    signupText: {
-        color: '#000',
-        fontSize: 16
-    },
-    signupButton: {
-        color: '#666',
-        fontSize: 16,
-        fontWeight: '500'
-    }
-});
 
 export default BottomInitialInfo;
