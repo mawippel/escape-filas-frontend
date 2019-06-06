@@ -30,3 +30,10 @@ export const BoldText = styled.Text`
   font-size: 16;
   font-weight: 500;
 `;
+
+export const CenteredWhiteText = styled.Text`
+  font-size: 16;
+  font-weight: 500;
+  color: #FFF;
+  text-align: center;
+`
