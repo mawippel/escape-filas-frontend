@@ -27,7 +27,8 @@ const LONGITUDE_DELTA = LATITUDE_DELTA * ASPECT_RATIO
 class Map extends Component {
 
 	static navigationOptions = {
-		header: null
+		header: null,
+		headerBackTitle: 'Voltar'
 	};
 
 	state = {
