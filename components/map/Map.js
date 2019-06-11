@@ -16,6 +16,7 @@ import Back from '../auxiliary/Back';
 import ButtonSeeLines from '../auxiliary/ButtonSeeLines';
 import backImage from "../../assets/back.png";
 import linesImage from "../../assets/lines.png"
+import { CenteredView } from '../styles';
 
 const { width, height } = Dimensions.get("window")
 const SCREEN_WIDTH = width
