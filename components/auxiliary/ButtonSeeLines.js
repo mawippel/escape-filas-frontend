@@ -1,11 +1,11 @@
 import React from 'react'
-import { Image } from 'react-native'
+import { Ionicons } from '@expo/vector-icons';
 import { StyledButtonSeeLines } from './styles';
 
 
 const ButtonSeeLines = (props) => (
   <StyledButtonSeeLines onPress={props.backHandler}>
-    <Image source={props.imageSource} />
+    <Ionicons name="ios-apps" size={30} color="black" />
   </StyledButtonSeeLines>
 );
 

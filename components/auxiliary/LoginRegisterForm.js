@@ -13,7 +13,6 @@ export default class LoginRegisterForm extends Component {
 			<>
 				<TextInput
 					style={styles.inputBox}
-					underlineColorAndroid='#bfbfbf'
 					placeholder="Email"
 					placeholderTextColor="#000"
 					selectionColor="#000"
@@ -23,7 +22,6 @@ export default class LoginRegisterForm extends Component {
 				/>
 				<TextInput
 					style={styles.inputBox}
-					underlineColorAndroid='#bfbfbf'
 					placeholder="Senha"
 					secureTextEntry={true}
 					placeholderTextColor="#000"

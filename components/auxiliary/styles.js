@@ -13,6 +13,12 @@ export const StyledButtonSeeLines = styled.TouchableOpacity`
   right: 20px;
 `;
 
+export const QRCodeButton = styled.TouchableOpacity`
+  position: absolute;
+  right: 20px;
+  bottom: 20px;
+`;
+
 export const ViewBottomInfo = styled.View`
   justify-content: center;
   padding-top: 16;

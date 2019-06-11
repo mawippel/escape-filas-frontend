@@ -17,6 +17,8 @@ import ButtonSeeLines from '../auxiliary/ButtonSeeLines';
 import backImage from "../../assets/back.png";
 import linesImage from "../../assets/lines.png"
 import { CenteredView } from '../styles';
+import ButtonQRCode from '../auxiliary/QRCodeButton';
+
 
 const { width, height } = Dimensions.get("window")
 const SCREEN_WIDTH = width
@@ -117,6 +119,10 @@ class Map extends Component {
 		});
 	};
 
+	onPressQRCode = () => {
+		// https://snack.expo.io/BJlFFcp2g
+	}
+
 	handleBack = () => {
 		this.setState({ destination: null });
 	};
@@ -176,9 +182,8 @@ class Map extends Component {
 						:
 						<>
 							<Search onLocationSelected={this.handleLocationSelected} />
-							<ButtonSeeLines
-								backHandler={this.navigateToLines}
-								imageSource={linesImage} />
+							<ButtonSeeLines	backHandler={this.navigateToLines} />
+							<ButtonQRCode onPress={this.onPressQRCode} />
 						</>
 				}
 			</>
