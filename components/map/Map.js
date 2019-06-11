@@ -7,13 +7,14 @@ import {
 import { connect } from 'react-redux';
 import * as actions from '../../store/actions/index';
 import { MapView, Location, Permissions } from 'expo';
+import { CenteredView } from '../styles';
 import LineReporter from '../lineReporter/LineReporter';
 import LineReporterModal from '../lineReporterModal/LineReporterModal'
 import Search from '../search/Search';
 import Back from '../auxiliary/Back';
 import ButtonSeeLines from '../auxiliary/ButtonSeeLines';
 import backImage from "../../assets/back.png";
-import { CenteredView } from '../styles';
+import linesImage from "../../assets/lines.png"
 
 const { width, height } = Dimensions.get("window")
 const SCREEN_WIDTH = width
@@ -173,8 +174,8 @@ class Map extends Component {
 						<>
 							<Search onLocationSelected={this.handleLocationSelected} />
 							<ButtonSeeLines
-								backHandler={this.navigateToLines} // TODO change image
-								imageSource={backImage} />
+								backHandler={this.navigateToLines}
+								imageSource={linesImage} />
 						</>
 				}
 			</>
