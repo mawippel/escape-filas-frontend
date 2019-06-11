@@ -1,11 +1,10 @@
 import React, { Component } from 'react';
 import {
 	StyleSheet,
-	Text,
-	View,
 	TextInput,
 	TouchableOpacity
 } from 'react-native';
+import { CenteredWhiteText } from './styles'
 
 export default class LoginRegisterForm extends Component {
 
@@ -34,9 +33,9 @@ export default class LoginRegisterForm extends Component {
 				<TouchableOpacity
 					onPress={this.props.handleAction}
 					style={styles.button}>
-					<Text style={styles.buttonText}>
+					<CenteredWhiteText>
 						{this.props.type}
-					</Text>
+					</CenteredWhiteText>
 				</TouchableOpacity>
 			</>
 		)
@@ -62,10 +61,4 @@ const styles = StyleSheet.create({
 		borderWidth: StyleSheet.hairlineWidth,
 		borderColor: "rgba(255,255,255,0.7)"
 	},
-	buttonText: {
-		fontSize: 16,
-		fontWeight: '500',
-		color: '#FFF',
-		textAlign: 'center'
-	}
 });

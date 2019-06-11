@@ -6,8 +6,9 @@ import {
 } from 'react-native'
 import { connect } from 'react-redux';
 import * as actions from '../../store/actions/index';
-import { MapView, Location, Permissions } from 'expo';
-import { CenteredView } from '../styles';
+import * as Permissions from 'expo-permissions';
+import * as Location from 'expo-location';
+import MapView from 'react-native-maps';
 import LineReporter from '../lineReporter/LineReporter';
 import LineReporterModal from '../lineReporterModal/LineReporterModal'
 import Search from '../search/Search';
@@ -26,7 +27,8 @@ const LONGITUDE_DELTA = LATITUDE_DELTA * ASPECT_RATIO
 class Map extends Component {
 
 	static navigationOptions = {
-		header: null
+		header: null,
+		headerBackTitle: 'Voltar'
 	};
 
 	state = {
