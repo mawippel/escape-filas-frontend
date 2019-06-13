@@ -5,10 +5,11 @@ import {
 	Alert,
 } from 'react-native'
 import { connect } from 'react-redux';
-import * as actions from '../../store/actions/index';
 import * as Permissions from 'expo-permissions';
 import * as Location from 'expo-location';
 import MapView from 'react-native-maps';
+
+import * as actions from '../../store/actions/index';
 import LineReporter from '../lineReporter/LineReporter';
 import LineReporterModal from '../lineReporterModal/LineReporterModal'
 import Search from '../search/Search';
@@ -118,8 +119,17 @@ class Map extends Component {
 		});
 	};
 
+	setQRCodeData = (placeID, placeName) => {
+		this.setState({
+			destination: {
+				placeID: placeID,
+				placeName: placeName
+			}
+		});
+	}
+
 	onPressQRCode = () => {
-		// https://snack.expo.io/BJlFFcp2g
+		this.props.navigation.navigate('QRCodeScanner', { setQRCodeData: this.setQRCodeData })
 	}
 
 	handleBack = () => {

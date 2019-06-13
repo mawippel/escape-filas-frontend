@@ -4,6 +4,7 @@ import Login from '../components/login/Login';
 import Register from '../components/register/Register'
 import Lines from '../components/lines/Lines';
 import Map from '../components/map/Map';
+import QRCodeScanner from '../components/qrCodeScanner/QRCodeScanner';
 
 createRoutingStack = () => {
   return createStackNavigator(
@@ -11,7 +12,8 @@ createRoutingStack = () => {
       Login: Login,
       Register: Register,
       Map: Map,
-      Lines: Lines
+      Lines: Lines,
+      QRCodeScanner: QRCodeScanner,
     },
     {
       initialRouteName: 'Login',

@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
-import { FlatList, ActivityIndicator, View, Image } from 'react-native';
-import { ListItem, SearchBar, Avatar } from "react-native-elements";
+import { FlatList, ActivityIndicator, View } from 'react-native';
+import { ListItem, SearchBar } from "react-native-elements";
 import { connect } from 'react-redux';
 import * as actions from '../../store/actions/index';
 import { CenteredView } from '../styles';
@@ -99,7 +99,6 @@ class Lines extends Component {
   };
 
 	renderAvatar = (quantity) => {
-    console.log(quantity)
 		if (quantity <= 10) {
       return { source: require('../../assets/low_queue.png') }
 		} else if (quantity <= 20) {
