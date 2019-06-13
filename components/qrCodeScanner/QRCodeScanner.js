@@ -37,8 +37,9 @@ export default class QRCodeScanner extends Component {
         );
     }
 
-    handleBarCodeScanned = ({ type, data }) => {
-        this.props.navigation.state.params.setQRCodeData(data.placeId, data.name)
+    handleBarCodeScanned = ({ data }) => {
+        const parsedData = JSON.parse(data)
+        this.props.navigation.state.params.setQRCodeData(parsedData.placeId, parsedData.name)
         this.props.navigation.navigate('Map')
     };
 }

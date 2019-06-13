@@ -18,6 +18,7 @@ import ButtonSeeLines from '../auxiliary/ButtonSeeLines';
 import backImage from "../../assets/back.png";
 import { CenteredView } from '../styles';
 import ButtonQRCode from '../auxiliary/QRCodeButton';
+import DisabledInput from '../auxiliary/DisabledInput';
 
 
 const { width, height } = Dimensions.get("window")
@@ -129,7 +130,7 @@ class Map extends Component {
 	}
 
 	onPressQRCode = () => {
-		this.props.navigation.navigate('QRCodeScanner', { setQRCodeData: this.setQRCodeData })
+		this.props.navigation.navigate('QRCodeScanner', { setQRCodeData: (placeID, placeName) => this.setQRCodeData(placeID, placeName) })
 	}
 
 	handleBack = () => {
@@ -183,6 +184,9 @@ class Map extends Component {
 					this.state.destination
 						?
 						<>
+							{!this.state.destination.latitude
+								? <DisabledInput inputValue={this.state.destination.placeName} /> 
+								: null}
 							<Back
 								backHandler={this.handleBack}
 								imageSource={backImage} />

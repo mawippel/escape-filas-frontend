@@ -7,6 +7,21 @@ export const StyledBack = styled.TouchableOpacity`
   left: 20px;
 `;
 
+export const StyledDisabledInput = styled.TextInput`
+  position: absolute;
+  top: ${Platform.select({ ios: 50, android: 45 })};
+  left: 60px;
+  height: 40px;
+  width: 80%;
+  border-width: 1px;
+  background-color: #FFF;
+  border-radius: 4px;
+  border-color: #FFF;
+  color: #000;
+  padding-left: 10px;
+  font-size: 14px;
+`;
+
 export const StyledButtonSeeLines = styled.TouchableOpacity`
   position: absolute;
   top: ${Platform.select({ ios: 76, android: 56 })};
