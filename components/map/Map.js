@@ -7,6 +7,7 @@ import {
 import { connect } from 'react-redux';
 import * as Permissions from 'expo-permissions';
 import * as Location from 'expo-location';
+import firebase from 'firebase';
 import MapView from 'react-native-maps';
 
 import * as actions from '../../store/actions/index';
@@ -45,11 +46,16 @@ class Map extends Component {
 		hasLocationPermissions: false,
 		locationResult: null,
 		destination: null,
-		isVisible: false
+		isVisible: false,
+		currentUser: -1,
 	};
 
 	componentDidMount() {
 		this.getLocationAsync();
+
+		const user = firebase.auth().currentUser;
+		const uid = user.uid;
+		this.setState({ currentUser: uid });
 	}
 
 	setLiveLocation = event => {
@@ -79,7 +85,8 @@ class Map extends Component {
 			latitudeDelta: mapRegion.latitudeDelta,
 			longitudeDelta: mapRegion.longitudeDelta
 		});
-		this.props.onReportLocation(mapRegion.latitude, mapRegion.longitude)
+
+		this.props.onReportLocation(this.state.currentUser, mapRegion.latitude, mapRegion.longitude)
 	}
 
 	getLocationAsync = async () => {
@@ -208,7 +215,7 @@ class Map extends Component {
 const mapDispatchToProps = dispatch => {
 	return {
 		onReportLine: (placeID, placeName, quantity) => dispatch(actions.reportLine(placeID, placeName, quantity)),
-		onReportLocation: (lat, lgn) => dispatch(actions.reportLocation(lat, lgn))
+		onReportLocation: (uuid, lat, lgn) => dispatch(actions.reportLocation(uuid, lat, lgn))
 	};
 };
 

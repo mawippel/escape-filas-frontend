@@ -12,50 +12,18 @@ class Lines extends Component {
   };
 
   state = {
-    lines: [
-      { id: 0, placeName: 'Teste1', quantity: 10, placeId: 'ergerg' },
-      { id: 1, placeName: 'Teste1', quantity: 15, placeId: 'afadf' },
-      { id: 2, placeName: 'Teste1', quantity: 20, placeId: 'dgfdf' },
-      { id: 3, placeName: 'Teste1', quantity: 25, placeId: 'bfgb' },
-      { id: 4, placeName: 'Teste1', quantity: 123, placeId: 'esrg' },
-      { id: 5, placeName: 'Teste1', quantity: 30, placeId: 'vvfrv' },
-      { id: 6, placeName: 'Teste1', quantity: 10, placeId: 'sss' },
-      { id: 7, placeName: 'Teste1', quantity: 123, placeId: 'sssafas' },
-      { id: 8, placeName: 'Teste1', quantity: 25, placeId: 'aa' },
-      { id: 9, placeName: 'Teste1', quantity: 123, placeId: 'tyghjm' },
-      { id: 10, placeName: 'Teste1', quantity: 2, placeId: 'mm' },
-      { id: 11, placeName: 'Teste1', quantity: 123, placeId: 'erg,kk,kerg' },
-      { id: 12, placeName: 'Teste1', quantity: 123, placeId: 'fnf' },
-      { id: 13, placeName: 'Teste1', quantity: 123, placeId: 'llll' },
-    ]
+    lines: null,
+    linesHolder: null
   }
-
-  // Changed only when the Lines are loaded/reloaded
-  linesHolder = [
-      { id: 0, placeName: 'Teste1', quantity: 123, placeId: 'ergerg' },
-      { id: 1, placeName: 'Teste1', quantity: 123, placeId: 'afadf' },
-      { id: 2, placeName: 'Teste1', quantity: 123, placeId: 'dgfdf' },
-      { id: 3, placeName: 'Teste1', quantity: 123, placeId: 'bfgb' },
-      { id: 4, placeName: 'Teste1', quantity: 123, placeId: 'esrg' },
-      { id: 5, placeName: 'Teste1', quantity: 123, placeId: 'vvfrv' },
-      { id: 6, placeName: 'Teste1', quantity: 123, placeId: 'sss' },
-      { id: 7, placeName: 'Teste1', quantity: 123, placeId: 'sssafas' },
-      { id: 8, placeName: 'Teste1', quantity: 123, placeId: 'aa' },
-      { id: 9, placeName: 'Teste1', quantity: 123, placeId: 'tyghjm' },
-      { id: 10, placeName: 'Teste1', quantity: 123, placeId: 'mm' },
-      { id: 11, placeName: 'Teste1', quantity: 123, placeId: 'erg,kk,kerg' },
-      { id: 12, placeName: 'Teste1', quantity: 123, placeId: 'fnf' },
-      { id: 13, placeName: 'Teste1', quantity: 123, placeId: 'llll' },
-  ];
 
   componentDidMount() {
     this.fetchLines()
   }
 
   fetchLines = () => {
-    // this.props.onFetchLines()
-    // this.linesHolder = this.props.lines
-    // this.setState({linesHolder: this.props.lines})
+    this.props.onFetchLines()
+    this.setState({linesHolder: this.props.lines })
+    this.setState({lines: this.props.lines })
   }
 
   searchFilterFunction = text => {
@@ -63,7 +31,7 @@ class Lines extends Component {
       value: text,
     });
 
-    const newLines = this.linesHolder.filter(item => {
+    const newLines = this.state.linesHolder.filter(item => {
       const itemData = `${item.placeName.toUpperCase()}`;
       const textData = text.toUpperCase();
       return itemData.indexOf(textData) > -1;
@@ -121,14 +89,19 @@ class Lines extends Component {
 
   render() {
     if (this.props.loading) {
-      return <CenteredView> <ActivityIndicator size="large" color="#000" /> </CenteredView>
+      return (
+        <CenteredView>
+          <ActivityIndicator size="large" color="#000" />
+        </CenteredView>
+      )
     }
+
     return (
       <FlatList
         data={this.state.lines}
         ListHeaderComponent={this.renderHeader}
         ItemSeparatorComponent={this.renderSeparator}
-        keyExtractor={item => item.placeId}
+        keyExtractor={item => item.id}
         refreshing={this.props.loading}
         onRefresh={() => this.fetchLines()}
         renderItem={({ item }) => (
@@ -146,6 +119,8 @@ class Lines extends Component {
 }
 
 const mapStateToProps = state => {
+  console.log(state);
+
   return {
     lines: state.lineReporter.lines,
     loading: state.lineReporter.loading

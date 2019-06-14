@@ -36,11 +36,11 @@ export const reportLineFail = (error) => {
     };
 };
 
-export const reportLocation = (latitude, longitude) => {
+export const reportLocation = (uuid, latitude, longitude) => {
     return dispatch => {
         dispatch(reportLocationStart());
         axios.post('', {
-            query: `mutation { addReportLocation (uid:"${1}", lat:"${latitude}", lng:"${longitude}") {name placeId } }`
+            query: `mutation { addReportLocation (uid:"${uuid}", lat:"${latitude}", lng:"${longitude}") {name placeId } }`
         }
         )
             .then(res => {
