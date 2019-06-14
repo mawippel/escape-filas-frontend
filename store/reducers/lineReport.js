@@ -2,7 +2,7 @@ import * as actionTypes from '../actions/actionTypes';
 import { updateObject } from '../utility';
 
 export const initialState = {
-    lines: null,
+    lines: [],
     loading: false
 };
 

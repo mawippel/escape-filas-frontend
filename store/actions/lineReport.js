@@ -71,20 +71,20 @@ export const reportLocationFail = (error) => {
     };
 };
 
-export const fetchLines = () => {
+export const fetchLines = (latitude, longitude) => {
     return dispatch => {
         dispatch(fetchLineStart());
         axios.post('', {
-            query: `{ placeLines { placeId quantity placeName } }`
+            query: `{ placeLinesRadius (lat:"${latitude}", lng:"${longitude}", radius:50) { placeId quantity placeName } }`
         }
         )
             .then(res => {
                 const fetchedLines = [];
-                for (let key in res.data.data.placeLines) {
+                for (let key in res.data.data.placeLinesRadius) {
                     fetchedLines.push({
                         ...res.data[key],
                         id: key,
-                        ...res.data.data.placeLines[key]
+                        ...res.data.data.placeLinesRadius[key]
                     });
                 }
                 dispatch(fetchLineSuccess(fetchedLines));

@@ -12,33 +12,46 @@ class Lines extends Component {
   };
 
   state = {
-    lines: null,
-    linesHolder: null
+    loading: false
   }
+  lat = 0
+  lng = 0
 
   componentDidMount() {
+    const { navigation } = this.props;
+    this.lat = navigation.getParam('lat');
+    this.lng = navigation.getParam('lng');
     this.fetchLines()
   }
 
   fetchLines = () => {
-    this.props.onFetchLines()
-    this.setState({linesHolder: this.props.lines })
-    this.setState({lines: this.props.lines })
+    this.props.onFetchLines(this.lat, this.lng)
   }
-
+  
   searchFilterFunction = text => {
-    this.setState({
-      value: text,
-    });
+    if (this.props.linesHolder) {
+      this.setState({
+        loading: true,
+        value: text,
+      });
 
-    const newLines = this.state.linesHolder.filter(item => {
-      const itemData = `${item.placeName.toUpperCase()}`;
-      const textData = text.toUpperCase();
-      return itemData.indexOf(textData) > -1;
-    });
-    this.setState({
-      lines: newLines,
-    });
+      let newLines = this.props.linesHolder.filter(item => {
+        const itemData = `${item.placeName.toUpperCase()}`;
+        const textData = text.toUpperCase();
+        return itemData.indexOf(textData) > -1;
+      });
+
+      if (!text) {
+        newLines = [...this.props.linesHolder]
+      }
+      this.props.lines.length = 0
+      this.props.lines.push(...newLines)
+
+
+      this.setState({
+        loading: false,
+      });
+    }
   };
 
   renderHeader = () => {
@@ -88,7 +101,7 @@ class Lines extends Component {
   }
 
   render() {
-    if (this.props.loading) {
+    if (this.props.loading || this.state.loading) {
       return (
         <CenteredView>
           <ActivityIndicator size="large" color="#000" />
@@ -98,7 +111,8 @@ class Lines extends Component {
 
     return (
       <FlatList
-        data={this.state.lines}
+        data={this.props.lines}
+        extraData={this.props}
         ListHeaderComponent={this.renderHeader}
         ItemSeparatorComponent={this.renderSeparator}
         keyExtractor={item => item.id}
@@ -119,17 +133,16 @@ class Lines extends Component {
 }
 
 const mapStateToProps = state => {
-  console.log(state);
-
   return {
-    lines: state.lineReporter.lines,
+    lines: [...state.lineReporter.lines],
+    linesHolder: [...state.lineReporter.lines],
     loading: state.lineReporter.loading
   };
 };
 
 const mapDispatchToProps = dispatch => {
   return {
-    onFetchLines: () => dispatch(actions.fetchLines())
+    onFetchLines: (lat, lng) => dispatch(actions.fetchLines(lat, lng))
   };
 };
 

@@ -145,7 +145,7 @@ class Map extends Component {
 	};
 
 	navigateToLines = () => {
-		this.props.navigation.push('Lines')
+		this.props.navigation.push('Lines', {lat: this.state.mapRegion.latitude, lng: this.state.mapRegion.longitude})
 	}
 
 	handleReportLine = (quantity) => {
