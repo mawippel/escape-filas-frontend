@@ -26,16 +26,25 @@
       "supportsTablet": true,
       "bundleIdentifier": "com.br.furb.escapefilas",
       "config": {
-        "googleMapsApiKey": "AIzaSyCF-4HJEeg4K0KJOEdMuqc5XiQkfM31M10"
+        "googleMapsApiKey": "KEY_HERE"
       }
     },
     "android": {
       "package": "com.br.furb.escapefilas",
       "config": {
         "googleMaps": {
-          "apiKey": "AIzaSyCF-4HJEeg4K0KJOEdMuqc5XiQkfM31M10"
+          "apiKey": "KEY_HERE"
         }
       }
+    },
+    "extra": {
+      "FIREBASE_API_KEY":"KEY_HERE",
+      "FIREBASE_AUTH_DOMAIN":"KEY_HERE",
+      "FIREBASE_DATABASE_URL":"KEY_HERE",
+      "FIREBASE_PROJECT_ID":"KEY_HERE",
+      "FIREBASE_STORAGE_BUCKET":"KEY_HERE",
+      "FIREBASE_MESSAGING_SENDER_ID":"KEY_HERE",
+      "GOOGLE_MAPS_API_KEY":"KEY_HERE"
     }
   }
 }

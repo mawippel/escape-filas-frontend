@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { Platform } from "react-native";
+import Constants from 'expo-constants';
 import { GooglePlacesAutocomplete } from 'react-native-google-places-autocomplete';
 
 export default class Search extends Component {
@@ -14,7 +15,7 @@ export default class Search extends Component {
       placeholderTextColor='#333'
       onPress={this.props.onLocationSelected}
       query={{
-        key: 'AIzaSyCF-4HJEeg4K0KJOEdMuqc5XiQkfM31M10',
+        key: Constants.manifest.extra.GOOGLE_MAPS_API_KEY,
         language: 'pt',
         components: 'country:br'
       }}
