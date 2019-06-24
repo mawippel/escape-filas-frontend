@@ -75,16 +75,16 @@ export const fetchLines = (latitude, longitude) => {
     return dispatch => {
         dispatch(fetchLineStart());
         axios.post('', {
-            query: `{ placeLinesRadius (lat:"${latitude}", lng:"${longitude}", radius:50) { placeId quantity placeName } }`
+            query: `{ placeLines { placeId quantity placeName } }`
         }
         )
             .then(res => {
                 const fetchedLines = [];
-                for (let key in res.data.data.placeLinesRadius) {
+                for (let key in res.data.data.placeLines) {
                     fetchedLines.push({
                         ...res.data[key],
                         id: key,
-                        ...res.data.data.placeLinesRadius[key]
+                        ...res.data.data.placeLines[key]
                     });
                 }
                 dispatch(fetchLineSuccess(fetchedLines));

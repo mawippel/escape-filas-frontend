@@ -1,7 +1,7 @@
 import axios from 'axios';
 
 const instance = axios.create({
-    baseURL: 'http://192.168.56.1:3000/graphql'
+    baseURL: 'https://escape-filas-backend-app.herokuapp.com/graphql'
 });
 
 export default instance;
