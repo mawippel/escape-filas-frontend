@@ -57,3 +57,6 @@ Create an ```app.json``` file in the root of the project, filling with your keys
   }
 }
 ```
+
+### Generating a QRCode
+`{ "placeId":"ec2234b206cc91e14df44e246178594c6b26c652", "name":"Factory Coffee Bar" }`
